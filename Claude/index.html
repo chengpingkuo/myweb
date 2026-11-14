@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>腳踏車遊記：加州與台灣</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f6f5;--card:#fff;--ink:#12262e;--mute:#53686f;--line:#d3dedc;--tw:#d6402b;--ca:#0f6e8c;--gold:#e0a21a;--hero:#0d3442;--hero-ink:#f2f6f5;
+--serif:"Noto Serif TC","Songti TC","PMingLiU",serif;--sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+:root:not([data-theme=light]){color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c1a20;--card:#14262e;--ink:#e6eeee;--mute:#92a8ad;--line:#25404a;--tw:#ff7a63;--ca:#5cc2e0;--hero:#07141a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 var(--sans)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header.hero{background:var(--hero);color:var(--hero-ink);padding:72px 0 56px;position:relative;overflow:hidden}
+.hero svg{position:absolute;inset:auto 0 0 0;width:100%;height:120px;opacity:.9}
+.hero h1{font:900 clamp(2.4rem,7vw,4.8rem)/1.1 var(--serif);margin:0 0 16px;letter-spacing:.02em}
+.hero h1 .tw{color:var(--tw)}.hero h1 .ca{color:var(--ca)}
+.hero p{max-width:34em;margin:0 0 28px;color:#c3d3d6}
+.hero .meta{display:flex;gap:28px;flex-wrap:wrap;font-size:.95rem;padding-bottom:70px}
+.hero .meta b{font:700 1.6rem var(--serif);display:block}
+h2{font:900 1.6rem/1.3 var(--serif);margin:56px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--gold)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--line);display:block}
+.card span{padding:12px 14px 14px;font-weight:500;border-top:4px solid var(--ca)}
+.card.tw span{border-top-color:var(--tw)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.bar button{font:500 .95rem var(--sans);padding:7px 16px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.bar button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.year{display:grid;grid-template-columns:90px 1fr;gap:12px 24px;padding:22px 0;border-top:1px solid var(--line)}
+.year>h3{font:900 2rem/1 var(--serif);margin:0;color:var(--mute)}
+.year ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.year li a{display:flex;gap:12px;align-items:baseline;padding:6px 10px;border-radius:8px;border-left:4px solid var(--ca)}
+.year li.tw a{border-left-color:var(--tw)}.year li.intl a{border-left-color:var(--gold)}
+.year li a:hover{background:var(--card)}
+.year li small{flex:none;min-width:3.6em;color:var(--mute)}
+.year li.rest{padding:6px 10px 6px 14px;color:var(--mute);border-left:4px dashed var(--line)}
+.gallery{columns:3 240px;column-gap:14px}
+.gallery img{width:100%;border-radius:10px;margin:0 0 14px;display:block;break-inside:avoid}
+.more{display:inline-block;margin:8px 0 0;font-weight:700;border-bottom:3px solid var(--gold)}
+footer{margin:64px 0 40px;color:var(--mute);font-size:.9rem}
+@media (max-width:600px){.year{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>腳踏車遊記<br><span class="ca">加州</span>與<span class="tw">台灣</span></h1>
+    <p>騎過太平洋兩岸：從金門大橋到日月潭，從 17 哩風景路到台 11 線。2020 至 2025 年的漫騎紀錄。</p>
+    <div class="meta"><div><b>61</b>篇遊記</div><div><b>2020–2025</b>騎乘年份</div><div><b>Tour de California<br>&amp; Tour de Taiwan</b></div></div>
+  </div>
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 80 Q150 20 300 70 T600 60 T900 75 T1200 40 V120 H0Z" fill="#0f6e8c" opacity=".35"/><path d="M0 100 Q200 50 400 95 T800 85 T1200 90 V120 H0Z" fill="#0f6e8c" opacity=".6"/></svg>
+</header>
+
+<main class="wrap">
+  <h2>精選路線</h2>
+  <div class="grid" id="featured"></div>
+
+  <h2>全部遊記</h2>
+  <div class="bar" role="group" aria-label="篩選地區">
+    <button aria-pressed="true" data-f="all">全部</button>
+    <button aria-pressed="false" data-f="us">加州／美國</button>
+    <button aria-pressed="false" data-f="tw">台灣</button>
+    <button aria-pressed="false" data-f="intl">其他國家</button>
+  </div>
+  <div id="archive"></div>
+  <a class="more" href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759" rel="noopener">矽谷工程師：旅遊 + 郵輪 + 美食 (2012–2025)</a>
+
+  <h2>路上的風景</h2>
+  <div class="gallery" id="gallery"></div>
+</main>
+<footer class="wrap">資料來源：Mobile01 腳踏車版。圖片與文章版權屬原作者。</footer>
+
+<script>
+var IMG="https://attach.mobile01.com/attach/",URL="https://www.mobile01.com/topicdetail.php?f=";
+var featured=[
+["202112/mobile01-642186fad9537ccf66236d9810f79f33.jpg","舊金山 金門大橋",6749196,"us"],
+["202112/mobile01-f23e071fc85e9c7726d52479c33a521e.jpg","花蓮・太魯閣・天祥",6279161,"tw"],
+["202112/mobile01-360313feb644624f1b4cf397e0efa518.jpg","北加漂亮濱海太平洋公路",6388252,"us"],
+["202211/mobile01-28d6ca9115d10f630e0dfe83f7d76949.jpg","四極點大環島",6698489,"tw"],
+["202305/mobile01-1463e88743f9b8b192c32bc33e45608c.png","台灣縱騎 剖地瓜",6786807,"tw"],
+["202105/mobile01-d322ebafae6143e1119512ab719872b4.jpg","17 哩風景路",6361037,"us"],
+["202305/mobile01-f602ef40f67e15ba6c8e80187b2d8451.jpg","琵琶湖 環湖漫騎",6786811,"intl"],
+["202209/mobile01-72f998abc480bcc05537593057b1f0a6.jpg","漫騎太浩湖",6670405,"us"],
+["202211/mobile01-a36022df07578b8720f8cbaf7362bd56.jpg","日月潭漫騎",6700250,"tw"],
+["202108/mobile01-2591613b2e85c4cc7e3db94d607f5f30.jpg","漫遊矽谷 1",6427939,"us"],
+["202108/mobile01-4b32316dc3b83df07b9cebc318edaa76.jpg","漫遊矽谷 2",6437675,"us"],
+["202206/mobile01-76b89aba89b91856c262706204f3766f.jpg","聖荷西玫瑰公園",6616649,"us"],
+["202301/mobile01-845e406705344b0201f61398b8198bee.jpg","聖地牙哥漫騎",6731628,"us"],
+["202301/mobile01-94652b628f495413ee77b4c4e6f6801e.jpg","爾灣 三日漫騎",6730711,"us"],
+["202211/mobile01-99b5863e369fc5f7625af39ee91c4fcb.jpg","埔里 三日漫騎",6701507,"tw"]];
+var gallery=["202509/mobile01-6bbe21ff98c14e924e71036a9b1a1d58.png","202402/mobile01-2b1be59fbdfd50952a3d5eaa689ebba2.jpg","202508/mobile01-894ff69f5da50316a4bd4f5a28c4e3b9.jpg","202304/mobile01-69a3dff81f78c6743a1701998418ac0a.jpg","202508/mobile01-db7af82c2f2563d87cec5779fd49a327.jpg","202508/mobile01-1c33e5aca243c9c3b27a1df3b91600f0.jpg","202601/mobile01-885abd537e16629cf1fc32f2fdf1aab7.jpg","202601/mobile01-c487b6387d45c6997c2f970604282bcf.jpg"];
+// 編號|年|季節|地區|標題|文章ID|版面(預設320)
+var raw=`61|2025|夏|tw|TCR+ZIPP 夏天漫遊高雄|7139017
+60|2025|春|intl|漫騎阿姆斯特丹|7119975
+59|2025|春|us|eMTB 漫騎 Anaheim Hills|7115988
+58|2024|全年|rest|術後休息一年|0
+57|2023|冬至|us|TREK 漫遊洛杉磯好萊塢|6895347
+56|2023|大雪|us|TREK 漫遊 Monterey 17 哩風景路|6888487
+55|2023|大雪|us|TREK 漫遊舊金山金門大橋|6886442
+54|2023|立冬|tw|E+Bike 環島：台 3 線、台 11 線|6876196
+53|2023|寒露|intl|大溪地一日漫騎|6861513
+52|2023|寒露|us|夏威夷 Waikiki 一日漫騎|6858138
+51|2023|立夏|intl|琵琶湖環湖漫騎 二日|6786811
+50|2023|立夏|tw|台灣縱騎 剖地瓜 七日|6786807
+49|2023|清明|tw|北進武嶺 三日漫騎|6769793
+48|2023|驚蟄|us|蒙特利灣與 17 英里海岸公路|6752243
+47|2023|立春|us|舊金山金門公園與金門大橋|6749196
+46|2023|春節|us|聖塔芭芭拉春節漫騎|6732596
+45|2023|春節|us|聖地牙哥春節漫騎|6731628
+44|2023|春節|us|爾灣春節三日漫騎|6730711
+43|2022|秋|tw|美濃 三日漫騎|6704010
+42|2022|秋|tw|埔里 三日漫騎|6701507
+41|2022|秋|tw|日月潭漫騎|6700250
+40|2022|秋|tw|捷安特四極點大環島|6698489
+39|2022|秋|us|秋分漫騎太浩湖|6670405
+38|2022|秋|us|中秋漫騎舊金山灣|6660086
+37|2022|夏|us|Alum Rock Park 夏日漫騎|6628400
+36|2022|夏|us|半月灣 Half Moon Bay 夏日漫騎|6622246
+35|2022|夏|us|Monterey 與 Pebble Beach 夏日漫騎|6620894
+34|2022|春|us|聖荷西玫瑰公園|6616649
+33|2022|春|us|舊金山金門大橋春遊漫騎|6571372
+32|2022|春|tw|第一次上武嶺|6555554
+31|2022|春|tw|第四次環島：Giant 高雄出發|6555553
+30|2021|冬|us|舊金山海灣大橋|6504001
+29|2021|冬|us|舊金山市區：Cable Car 與 Lombard St|6500214|735
+28|2021|秋|us|納帕酒莊 Napa Valley 賞秋|6487350
+27|2021|秋|us|亞利桑那州：馬蹄灣與羚羊峽谷|6483621
+26|2021|秋|us|拉斯維加斯與 Red Rock NP|6482689
+25|2021|秋|us|南加州新港灘 Ocean Blvd|6481487
+24|2021|秋|us|太平洋海岸 1 號公路 Big Sur|6473937
+23|2021|秋|us|環湖漫騎太浩湖 Lake Tahoe|6471101
+22|2021|秋|us|Insta360 全景漫騎：北加半月灣|6465823|735
+21|2021|秋|us|Insta360 全景漫騎：聖荷西社區小徑|6464933|735
+20|2021|秋|us|Insta360 全景漫騎：蒙特雷灣|6455394
+19|2021|秋|us|RayBan 智慧眼鏡漫騎蒙特雷灣|6454975
+18|2021|秋|us|Insta360 全景漫騎：金門大橋|6450834
+17|2021|夏|us|Giant Defy 漫遊矽谷 (2/2)|6437675
+16|2021|夏|us|Giant TCR 漫遊矽谷 (1/2)|6427939
+15|2021|夏|us|北加濱海太平洋公路 Half Moon Bay|6388252
+14|2021|夏|us|Torrey Pines 與 La Jolla|6382763
+13|2021|夏|us|拉斯維加斯大道|6380322
+12|2021|夏|us|新港灘 Newport Beach 一日遊|6376438
+11|2021|春|us|Monterey 17 哩風景路來回輕騎|6361037
+10|2021|春|us|舊金山一日騎遊：金門公園、金門大橋、美術宮|6333545
+09|2021|初|tw|花蓮、中橫、天祥單車健騎|6279161
+08|2021|初|tw|單車環島趣 9 天 8 夜 (捷安特)|6274777
+07|2020|冬|tw|陽明山單車一日遊|6266911
+06|2020|冬|tw|日月潭環騎三日|6262849
+05|2020|冬|tw|高雄憶遊三日騎玩|6259404
+04|2020|冬|tw|台東慢活五日自由騎|6253709
+03|2020|秋|tw|台灣縱騎 6 天 5 夜 (捷安特)|6251111
+02|2020|秋|tw|臺北郊遊三日騎玩|6240937
+01|2020|秋|us|南加州：太平洋海岸 1 號公路|6195909`;
+var posts=raw.split("\n").map(function(l){var p=l.split("|");return{no:p[0],y:p[1],s:p[2],r:p[3],t:p[4],id:p[5],f:p[6]||320}});
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html)e.textContent=html;return e}
+var fe=document.getElementById("featured");
+featured.forEach(function(c){var a=el("a","card "+c[3]);a.href=URL+"320&t="+c[2];a.rel="noopener";
+ var i=new Image();i.src=IMG+c[0];i.alt=c[1];i.loading="lazy";i.referrerPolicy="no-referrer";a.appendChild(i);a.appendChild(el("span","",c[1]));fe.appendChild(a)});
+var ge=document.getElementById("gallery");
+gallery.forEach(function(g,n){var i=new Image();i.src=IMG+g;i.alt="騎行風景 "+(n+1);i.loading="lazy";i.referrerPolicy="no-referrer";ge.appendChild(i)});
+var arc=document.getElementById("archive");
+function render(f){arc.textContent="";var years=["2025","2024","2023","2022","2021","2020"];
+ years.forEach(function(y){var list=posts.filter(function(p){return p.y===y&&(f==="all"||p.r===f||(p.r==="rest"&&f==="all"))});
+  if(!list.length)return;var s=el("section","year");s.appendChild(el("h3","",y));var ul=el("ul");
+  list.forEach(function(p){var li=el("li",p.r);
+   if(p.r==="rest"){li.textContent=p.s+"｜"+p.t;li.className="rest"}
+   else{var a=el("a");a.href=URL+p.f+"&t="+p.id;a.rel="noopener";a.appendChild(el("small","",p.s));a.appendChild(el("span","",p.t));li.appendChild(a)}
+   ul.appendChild(li)});
+  s.appendChild(ul);arc.appendChild(s)})}
+render("all");
+document.querySelectorAll(".bar button").forEach(function(b){b.addEventListener("click",function(){
+ document.querySelectorAll(".bar button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+ b.setAttribute("aria-pressed","true");render(b.dataset.f)})});
+</script>
+</body>
+</html>
