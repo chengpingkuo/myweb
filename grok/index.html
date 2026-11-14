@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>腳踏車遊記 · 加州 & 台灣</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f766e;
+      --primary-dark: #0d5c56;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
+      color: white;
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Featured Grid */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      transition: all 0.25s ease;
+      border: 1px solid var(--border);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-body {
+      padding: 1rem 1.15rem 1.25rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.4;
+    }
+
+    /* Trip Log */
+    .trip-log {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .year-group {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .year-group:last-child {
+      border-bottom: none;
+    }
+
+    .year-header {
+      background: #f1f5f9;
+      padding: 0.85rem 1.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .trip-list {
+      list-style: none;
+    }
+
+    .trip-list li {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .trip-list li:last-child {
+      border-bottom: none;
+    }
+
+    .trip-list a {
+      display: flex;
+      gap: 0.85rem;
+      padding: 0.9rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: background 0.2s;
+      align-items: flex-start;
+    }
+
+    .trip-list a:hover {
+      background: #f8fafc;
+    }
+
+    .trip-num {
+      flex-shrink: 0;
+      width: 2.2rem;
+      height: 2.2rem;
+      background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .trip-info {
+      flex: 1;
+    }
+
+    .trip-title {
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+
+    .trip-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Extra Images */
+    .extra-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .extra-gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.06);
+      transition: transform 0.3s;
+    }
+
+    .extra-gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 3rem 1.25rem 2.5rem;
+      }
+      .card img {
+        height: 180px;
+      }
+      .trip-list a {
+        padding: 0.85rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>🚲 腳踏車遊記 · 加州 & 台灣</h1>
+      <p class="subtitle">太平洋兩岸 · 腳踏車漫遊</p>
+      <div class="badge">2020 – 2025 · Tour de California & Tour de Taiwan</div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Featured Rides -->
+    <section>
+      <h2 class="section-title">精選路線</h2>
+      <div class="featured-grid">
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6749196" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202112/mobile01-642186fad9537ccf66236d9810f79f33.jpg" alt="舊金山 金門大橋">
+            <div class="card-body">
+              <div class="card-title">舊金山 · 金門大橋</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6279161" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202112/mobile01-f23e071fc85e9c7726d52479c33a521e.jpg" alt="花蓮 太魯閣">
+            <div class="card-body">
+              <div class="card-title">花蓮 · 太魯閣 · 天祥</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6388252" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202112/mobile01-360313feb644624f1b4cf397e0efa518.jpg" alt="北加太平洋公路">
+            <div class="card-body">
+              <div class="card-title">北加漂亮濱海太平洋公路</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6698489" target="_blank">
+            <img src="https://attach.mobile01.com.com/attach/202211/mobile01-28d6ca9115d10f630e0dfe83f7d76949.jpg" alt="四極點大環島">
+            <div class="card-body">
+              <div class="card-title">四極點大環島</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6786807" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202305/mobile01-1463e88743f9b8b192c32bc33e45608c.png" alt="台灣縱騎">
+            <div class="card-body">
+              <div class="card-title">台灣縱騎 · 剖地瓜</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6361037" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202105/mobile01-d322ebafae6143e1119512ab719872b4.jpg" alt="17哩風景路">
+            <div class="card-body">
+              <div class="card-title">17哩風景路</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6786811" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202305/mobile01-f602ef40f67e15ba6c8e80187b2d8451.jpg" alt="琵琶湖">
+            <div class="card-body">
+              <div class="card-title">琵琶湖 · 環湖漫騎</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6670405" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202209/mobile01-72f998abc480bcc05537593057b1f0a6.jpg" alt="太浩湖">
+            <div class="card-body">
+              <div class="card-title">漫騎太浩湖</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6700250" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202211/mobile01-a36022df07578b8720f8cbaf7362bd56.jpg" alt="日月潭">
+            <div class="card-body">
+              <div class="card-title">日月潭漫騎</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6427939" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202108/mobile01-2591613b2e85c4cc7e3db94d607f5f30.jpg" alt="矽谷1">
+            <div class="card-body">
+              <div class="card-title">漫遊矽谷 1</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6437675" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202108/mobile01-4b32316dc3b83df07b9cebc318edaa76.jpg" alt="矽谷2">
+            <div class="card-body">
+              <div class="card-title">漫遊矽谷 2</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6616649" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202206/mobile01-76b89aba89b91856c262706204f3766f.jpg" alt="聖荷西玫瑰公園">
+            <div class="card-body">
+              <div class="card-title">🌺 聖荷西 · 玫瑰公園 🌹</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6731628" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202301/mobile01-845e406705344b0201f61398b8198bee.jpg" alt="聖地牙哥">
+            <div class="card-body">
+              <div class="card-title">聖地牙哥漫騎</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6730711" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202301/mobile01-94652b628f495413ee77b4c4e6f6801e.jpg" alt="爾灣">
+            <div class="card-body">
+              <div class="card-title">爾灣 · 三日漫騎</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="card">
+          <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6701507" target="_blank">
+            <img src="https://attach.mobile01.com/attach/202211/mobile01-99b5863e369fc5f7625af39ee91c4fcb.jpg" alt="埔里">
+            <div class="card-body">
+              <div class="card-title">埔里 · 三日漫騎</div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Full Trip Log -->
+    <section>
+      <h2 class="section-title">完整遊記列表</h2>
+
+      <div class="trip-log">
+
+        <!-- 2025 -->
+        <div class="year-group">
+          <div class="year-header">2025</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=7139017" target="_blank">
+                <span class="trip-num">61</span>
+                <div class="trip-info">
+                  <div class="trip-title">TCR + ZIPP 夏天漫遊高雄</div>
+                  <div class="trip-meta">2025 夏天</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=7119975" target="_blank">
+                <span class="trip-num">60</span>
+                <div class="trip-info">
+                  <div class="trip-title">漫騎阿姆斯特丹</div>
+                  <div class="trip-meta">2025 春天 · 🇳🇱</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=7115988" target="_blank">
+                <span class="trip-num">59</span>
+                <div class="trip-info">
+                  <div class="trip-title">eMTB 漫騎 Anaheim Hills</div>
+                  <div class="trip-meta">2025 春天 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2024 -->
+        <div class="year-group">
+          <div class="year-header">2024</div>
+          <ul class="trip-list">
+            <li>
+              <div style="padding: 0.9rem 1.5rem; color: var(--muted);">
+                <span class="trip-num" style="background:#f1f5f9; color:#64748b;">58</span>
+                <span style="margin-left:0.85rem;">術後休息一年 💤</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2023 -->
+        <div class="year-group">
+          <div class="year-header">2023</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6895347" target="_blank">
+                <span class="trip-num">57</span>
+                <div class="trip-info">
+                  <div class="trip-title">TREK 漫遊洛杉磯 · 好萊塢</div>
+                  <div class="trip-meta">2023 冬至 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6888487" target="_blank">
+                <span class="trip-num">56</span>
+                <div class="trip-info">
+                  <div class="trip-title">TREK 漫遊 Monterey 17哩風景路</div>
+                  <div class="trip-meta">2023 大雪 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6886442" target="_blank">
+                <span class="trip-num">55</span>
+                <div class="trip-info">
+                  <div class="trip-title">TREK 漫遊舊金山 · 金門大橋</div>
+                  <div class="trip-meta">2023 大雪 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6876196" target="_blank">
+                <span class="trip-num">54</span>
+                <div class="trip-info">
+                  <div class="trip-title">E+Bike 環島 · 台3線 + 最美東海岸台11線</div>
+                  <div class="trip-meta">2023 立冬</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6861513" target="_blank">
+                <span class="trip-num">53</span>
+                <div class="trip-info">
+                  <div class="trip-title">大溪地一日漫騎</div>
+                  <div class="trip-meta">2023 寒露 · 🇫🇷</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6858138" target="_blank">
+                <span class="trip-num">52</span>
+                <div class="trip-info">
+                  <div class="trip-title">夏威夷 Waikiki 一日漫騎</div>
+                  <div class="trip-meta">2023 寒露 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6786811" target="_blank">
+                <span class="trip-num">51</span>
+                <div class="trip-info">
+                  <div class="trip-title">琵琶湖環湖漫騎（二日）</div>
+                  <div class="trip-meta">2023 立夏 · 🇯🇵</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6786807" target="_blank">
+                <span class="trip-num">50</span>
+                <div class="trip-info">
+                  <div class="trip-title">台灣縱騎 · 剖地瓜（七日）</div>
+                  <div class="trip-meta">2023 立夏</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6769793" target="_blank">
+                <span class="trip-num">49</span>
+                <div class="trip-info">
+                  <div class="trip-title">北進武嶺（三日）</div>
+                  <div class="trip-meta">2023 清明</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6752243" target="_blank">
+                <span class="trip-num">48</span>
+                <div class="trip-info">
+                  <div class="trip-title">蒙特利灣 & 17英里海岸公路</div>
+                  <div class="trip-meta">2023 驚蟄 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6749196" target="_blank">
+                <span class="trip-num">47</span>
+                <div class="trip-info">
+                  <div class="trip-title">舊金山 · 金門公園 & 金門大橋</div>
+                  <div class="trip-meta">2023 立春 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6732596" target="_blank">
+                <span class="trip-num">46</span>
+                <div class="trip-info">
+                  <div class="trip-title">聖塔芭芭拉 · 春節漫騎</div>
+                  <div class="trip-meta">2023 春節 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6731628" target="_blank">
+                <span class="trip-num">45</span>
+                <div class="trip-info">
+                  <div class="trip-title">聖地牙哥 · 春節漫騎</div>
+                  <div class="trip-meta">2023 春節 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6730711" target="_blank">
+                <span class="trip-num">44</span>
+                <div class="trip-info">
+                  <div class="trip-title">爾灣 · 春節三日漫騎</div>
+                  <div class="trip-meta">2023 春節 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2022 -->
+        <div class="year-group">
+          <div class="year-header">2022</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6704010" target="_blank">
+                <span class="trip-num">43</span>
+                <div class="trip-info">
+                  <div class="trip-title">美濃三日漫騎</div>
+                  <div class="trip-meta">2022 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6701507" target="_blank">
+                <span class="trip-num">42</span>
+                <div class="trip-info">
+                  <div class="trip-title">埔里三日漫騎</div>
+                  <div class="trip-meta">2022 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6700250" target="_blank">
+                <span class="trip-num">41</span>
+                <div class="trip-info">
+                  <div class="trip-title">日月潭漫騎</div>
+                  <div class="trip-meta">2022 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6698489" target="_blank">
+                <span class="trip-num">40</span>
+                <div class="trip-info">
+                  <div class="trip-title">捷安特四極點大環島</div>
+                  <div class="trip-meta">2022 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6670405" target="_blank">
+                <span class="trip-num">39</span>
+                <div class="trip-info">
+                  <div class="trip-title">秋分漫騎太浩湖</div>
+                  <div class="trip-meta">2022 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6660086" target="_blank">
+                <span class="trip-num">38</span>
+                <div class="trip-info">
+                  <div class="trip-title">中秋漫騎舊金山灣</div>
+                  <div class="trip-meta">2022 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6628400" target="_blank">
+                <span class="trip-num">37</span>
+                <div class="trip-info">
+                  <div class="trip-title">Alum Rock Park 夏日漫騎</div>
+                  <div class="trip-meta">2022 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6622246" target="_blank">
+                <span class="trip-num">36</span>
+                <div class="trip-info">
+                  <div class="trip-title">半月灣 Half Moon Bay 夏日漫騎</div>
+                  <div class="trip-meta">2022 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6620894" target="_blank">
+                <span class="trip-num">35</span>
+                <div class="trip-info">
+                  <div class="trip-title">蒙特雷灣 & Pebble Beach 夏日漫騎</div>
+                  <div class="trip-meta">2022 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6616649" target="_blank">
+                <span class="trip-num">34</span>
+                <div class="trip-info">
+                  <div class="trip-title">🌺 聖荷西玫瑰公園 🌹</div>
+                  <div class="trip-meta">2022 春 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6571372" target="_blank">
+                <span class="trip-num">33</span>
+                <div class="trip-info">
+                  <div class="trip-title">舊金山金門大橋春遊漫騎</div>
+                  <div class="trip-meta">2022 春 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6555554" target="_blank">
+                <span class="trip-num">32</span>
+                <div class="trip-info">
+                  <div class="trip-title">第一次上武嶺</div>
+                  <div class="trip-meta">2022 春</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6555553" target="_blank">
+                <span class="trip-num">31</span>
+                <div class="trip-info">
+                  <div class="trip-title">第四次環島 · Giant 高雄出發</div>
+                  <div class="trip-meta">2022 春</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2021 -->
+        <div class="year-group">
+          <div class="year-header">2021</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6504001" target="_blank">
+                <span class="trip-num">30</span>
+                <div class="trip-info">
+                  <div class="trip-title">漫騎舊金山海灣大橋</div>
+                  <div class="trip-meta">2021 冬 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=735&t=6500214" target="_blank">
+                <span class="trip-num">29</span>
+                <div class="trip-info">
+                  <div class="trip-title">舊金山市區 · Cable Car & Lombard St</div>
+                  <div class="trip-meta">2021 冬 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6487350" target="_blank">
+                <span class="trip-num">28</span>
+                <div class="trip-info">
+                  <div class="trip-title">納帕酒莊 Napa Valley 賞秋</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6483621" target="_blank">
+                <span class="trip-num">27</span>
+                <div class="trip-info">
+                  <div class="trip-title">亞利桑那 · 馬蹄灣 & 羚羊峽谷</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6482689" target="_blank">
+                <span class="trip-num">26</span>
+                <div class="trip-info">
+                  <div class="trip-title">拉斯維加斯 & Red Rock NP</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6481487" target="_blank">
+                <span class="trip-num">25</span>
+                <div class="trip-info">
+                  <div class="trip-title">南加州最美新港灘 Ocean Blvd</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6473937" target="_blank">
+                <span class="trip-num">24</span>
+                <div class="trip-info">
+                  <div class="trip-title">太平洋海岸1號公路 · Big Sur</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6471101" target="_blank">
+                <span class="trip-num">23</span>
+                <div class="trip-info">
+                  <div class="trip-title">太浩湖環湖漫騎</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=735&t=6465823" target="_blank">
+                <span class="trip-num">22</span>
+                <div class="trip-info">
+                  <div class="trip-title">Insta360 全景漫騎 · 北加半月灣</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=735&t=6464933" target="_blank">
+                <span class="trip-num">21</span>
+                <div class="trip-info">
+                  <div class="trip-title">Insta360 全景漫騎 · 聖荷西社區小徑</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6455394" target="_blank">
+                <span class="trip-num">20</span>
+                <div class="trip-info">
+                  <div class="trip-title">Insta360 全景漫騎 · 北加蒙特雷灣</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6454975" target="_blank">
+                <span class="trip-num">19</span>
+                <div class="trip-info">
+                  <div class="trip-title">RayBan 智慧眼鏡漫騎 · 北加蒙特雷灣</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6450834" target="_blank">
+                <span class="trip-num">18</span>
+                <div class="trip-info">
+                  <div class="trip-title">Insta360 全景漫騎 · 舊金山金門大橋</div>
+                  <div class="trip-meta">2021 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6437675" target="_blank">
+                <span class="trip-num">17</span>
+                <div class="trip-info">
+                  <div class="trip-title">Giant Defy 漫遊矽谷 (2/2)</div>
+                  <div class="trip-meta">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6427939" target="_blank">
+                <span class="trip-num">16</span>
+                <div class="trip-info">
+                  <div class="trip-title">Giant TCR 漫遊矽谷 (1/2)</div>
+                  <div class="trip-meta">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6388252" target="_blank">
+                <span class="trip-num">15</span>
+                <div class="trip-info">
+                  <div class="trip-title">北加漂亮濱海太平洋公路 · Half Moon Bay</div>
+                  <div class="trip-meta">202">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6382763" target="_blank">
+                <span class="trip-num">14</span>
+                <div class="trip-info">
+                  <div class="trip-title">美國高球公開賽 Torrey Pines & La Jolla</div>
+                  <div class="trip-meta">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6380322" target="_blank">
+                <span class="trip-num">13</span>
+                <div class="trip-info">
+                  <div class="trip-title">迷人拉斯維加斯大道</div>
+                  <div class="trip-meta">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6376438" target="_blank">
+                <span class="trip-num">12</span>
+                <div class="trip-info">
+                  <div class="trip-title">南加最美最貴海邊 · Newport Beach</div>
+                  <div class="trip-meta">2021 夏 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6361037" target="_blank">
+                <span class="trip-num">11</span>
+                <div class="trip-info">
+                  <div class="trip-title">Monterey 17哩風景路</div>
+                  <div class="trip-meta">2021 春 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6333545" target="_blank">
+                <span class="trip-num">10</span>
+                <div class="trip-info">
+                  <div class="trip-title">舊金山一日騎 · 金門公園 → 金門大橋 → 美術宮</div>
+                  <div class="trip-meta">2021 春 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6279161" target="_blank">
+                <span class="trip-num">09</span>
+                <div class="trip-info">
+                  <div class="trip-title">花蓮 · 中橫 · 天祥 單車健騎</div>
+                  <div class="trip-meta">2021 初</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6274777" target="_blank">
+                <span class="trip-num">08</span>
+                <div class="trip-info">
+                  <div class="trip-title">單車環島趣 9天8夜（捷安特）</div>
+                  <div class="trip-meta">2021 初</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2020 -->
+        <div class="year-group">
+          <div class="year-header">2020</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6266911" target="_blank">
+                <span class="trip-num">07</span>
+                <div class="trip-info">
+                  <div class="trip-title">陽明山單車一日遊</div>
+                  <div class="trip-meta">2020 冬</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6262849" target="_blank">
+                <span class="trip-num">06</span>
+                <div class="trip-info">
+                  <div class="trip-title">日月潭環騎三日</div>
+                  <div class="trip-meta">2020 冬</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6259404" target="_blank">
+                <span class="trip-num">05</span>
+                <div class="trip-info">
+                  <div class="trip-title">高雄憶遊三日騎玩</div>
+                  <div class="trip-meta">2020 冬</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6253709" target="_blank">
+                <span class="trip-num">04</span>
+                <div class="trip-info">
+                  <div class="trip-title">台東慢活五日自由騎</div>
+                  <div class="trip-meta">2020 冬</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6251111" target="_blank">
+                <span class="trip-num">03</span>
+                <div class="trip-info">
+                  <div class="trip-title">台灣縱騎 6天5夜（捷安特）</div>
+                  <div class="trip-meta">2020 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6240937" target="_blank">
+                <span class="trip-num">02</span>
+                <div class="trip-info">
+                  <div class="trip-title">臺北郊遊三日騎玩</div>
+                  <div class="trip-meta">2020 秋</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=320&t=6195909" target="_blank">
+                <span class="trip-num">01</span>
+                <div class="trip-info">
+                  <div class="trip-title">南加州 · 太平洋海岸1號公路</div>
+                  <div class="trip-meta">2020 秋 · 🇺🇸</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Other -->
+        <div class="year-group">
+          <div class="year-header">其他</div>
+          <ul class="trip-list">
+            <li>
+              <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759" target="_blank">
+                <span class="trip-num">00</span>
+                <div class="trip-info">
+                  <div class="trip-title">矽谷工程師 (2012–2025) · 旅遊 + 郵輪 + 美食</div>
+                  <div class="trip-meta">總目錄</div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Extra Photos -->
+    <section>
+      <h2 class="section-title">更多照片</h2>
+      <div class="extra-gallery">
+        <img src="https://attach.mobile01.com/attach/202509/mobile01-6bbe21ff98c14e924e71036a9b1a1d58.png" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202402/mobile01-2b1be59fbdfd50952a3d5eaa689ebba2.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202508/mobile01-894ff69f5da50316a4bd4f5a28c4e3b9.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202304/mobile01-69a3dff81f78c6743a1701998418ac0a.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202508/mobile01-db7af82c2f2563d87cec5779fd49a327.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202508/mobile01-1c33e5aca243c9c3b27a1df3b91600f0.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202601/mobile01-885abd537e16629cf1fc32f2fdf1aab7.jpg" alt="extra photo">
+        <img src="https://attach.mobile01.com/attach/202601/mobile01-c487b6387d45c6997c2f970604282bcf.jpg" alt="extra photo">
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>🚲 腳踏車遊記 · 加州 & 台灣 · 2020–2025</p>
+    <p style="margin-top:0.4rem; font-size:0.9rem;">太平洋兩岸 · 用單車記錄美好時光</p>
+  </footer>
+
+</body>
+</html>
