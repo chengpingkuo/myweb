@@ -1,784 +1,1935 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" class="scroll-smooth">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚲 腳踏車遊記 : 加州和台灣 | Tour de California &amp; Tour de Taiwan (2020–2025)</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+    <title>🚲 腳踏車遊記 : 加州和台灣 — Tour de California &amp; Tour de Taiwan (2020–2026)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
-                    },
-                    colors: {
-                        asphalt: '#0f172a',
-                        emeraldRide: '#10b981',
-                        sunsetAmber: '#f59e0b',
-                    }
-                }
+    <style>
+        /* ==========================================================================
+           Design Tokens & Reset (100% Self-Contained — Zero External CSS/JS CDNs)
+           ========================================================================== */
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-navy: #0f172a;
+            --bg-navy-light: #1e293b;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-light: #94a3b8;
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --emerald-soft: #ecfdf5;
+            --emerald-border: #a7f3d0;
+            --amber: #f59e0b;
+            --amber-dark: #b45309;
+            --amber-soft: #fffbeb;
+            --amber-border: #fde68a;
+            --sky: #0284c7;
+            --sky-soft: #f0f9ff;
+            --sky-border: #bae6fd;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+            --shadow-lg: 0 20px 35px -10px rgba(15, 23, 42, 0.16);
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --font-sans: "Plus Jakarta Sans", "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font-sans);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input {
+            font-family: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           Sticky Top Navbar
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 64px;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: var(--emerald);
+            color: #022c22;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            padding: 7px 12px;
+            border-radius: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #34d399;
+        }
+
+        .nav-link-featured {
+            background: rgba(16, 185, 129, 0.16);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .nav-link-featured:hover {
+            background: var(--emerald);
+            color: #022c22;
+        }
+
+        /* ==========================================================================
+           Hero Banner
+           ========================================================================== */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #090d16 0%, #0f172a 48%, #064e3b 100%);
+            color: #ffffff;
+            padding: 56px 0 68px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(16, 185, 129, 0.22) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            color: #6ee7b7;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(1.9rem, 4.5vw, 3.35rem);
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            color: #cbd5e1;
+            font-weight: 500;
+            margin-bottom: 28px;
+        }
+
+        .hero-master-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #022c22;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 13px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 36px;
+            max-width: 100%;
+        }
+
+        .hero-master-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(16, 185, 129, 0.42);
+        }
+
+        .badge-00 {
+            background: rgba(2, 44, 34, 0.16);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.65);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: var(--radius-lg);
+            padding: 18px 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .stat-value {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .stat-value.emerald { color: #34d399; }
+        .stat-value.amber { color: #fbbf24; }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           Main Sections Layout
+           ========================================================================== */
+        .main-content {
+            padding: 56px 0 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 68px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .section-kicker {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .kicker-emerald { background: var(--emerald-soft); color: var(--emerald-dark); }
+        .kicker-amber { background: var(--amber-soft); color: var(--amber-dark); }
+        .kicker-sky { background: var(--sky-soft); color: var(--sky); }
+
+        .section-title {
+            font-size: clamp(1.45rem, 3vw, 2rem);
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.015em;
+        }
+
+        .section-hint {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           Section 1: Featured 15 Routes Grid
+           ========================================================================== */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .route-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: #cbd5e1;
+        }
+
+        .route-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: #0f172a;
+            overflow: hidden;
+        }
+
+        .route-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.45s ease;
+        }
+
+        .route-card:hover .route-thumb img {
+            transform: scale(1.05);
+        }
+
+        .route-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+        }
+
+        .tag-ca { background: #f59e0b; color: #0f172a; }
+        .tag-tw { background: #10b981; color: #022c22; }
+        .tag-jp { background: #0284c7; color: #ffffff; }
+
+        .route-body {
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .route-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text-main);
+            transition: color 0.2s;
+        }
+
+        .route-card:hover .route-title {
+            color: var(--emerald-dark);
+        }
+
+        .route-cta {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--emerald-dark);
+            white-space: nowrap;
+            background: var(--emerald-soft);
+            padding: 6px 11px;
+            border-radius: 999px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .route-card:hover .route-cta {
+            background: var(--emerald);
+            color: #022c22;
+        }
+
+        .route-img-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 5;
+            background: rgba(15, 23, 42, 0.85);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .route-img-btn:hover {
+            background: var(--emerald);
+            color: #022c22;
+            border-color: var(--emerald);
+        }
+
+        .route-img-editor {
+            padding: 10px 14px;
+            background: #f1f5f9;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .route-img-editor input {
+            flex: 1;
+            min-width: 0;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--emerald);
+            font-size: 0.78rem;
+            color: var(--text-main);
+        }
+
+        .route-img-editor button {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           Section 2: Complete 63-Ride Chronological Archive
+           ========================================================================== */
+        .archive-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .archive-top-bar {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 11px 38px 11px 40px;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+            display: none;
+        }
+
+        .clear-btn.visible {
+            display: inline-block;
+        }
+
+        .filters-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 22px 0;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-pill {
+            border: 1px solid var(--border-color);
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 0.83rem;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 11px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .filter-pill:hover {
+            background: #e2e8f0;
+        }
+
+        .filter-pill.active {
+            background: var(--bg-navy);
+            color: #ffffff;
+            border-color: var(--bg-navy);
+        }
+
+        .year-pill {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 999px;
+        }
+
+        .year-pill.active {
+            background: var(--emerald-dark);
+            color: #ffffff;
+            border-color: var(--emerald-dark);
+        }
+
+        .result-count {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* Pinned Master Banner 00 */
+        .pinned-00 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            transition: transform 0.2s, background 0.2s;
+            margin: 12px 0;
+        }
+
+        .pinned-00:hover {
+            background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+            transform: translateY(-1px);
+        }
+
+        .pinned-00.bottom {
+            background: #f8fafc;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .pinned-00.bottom:hover {
+            background: var(--emerald-soft);
+            border-color: var(--emerald-border);
+        }
+
+        .pinned-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .num-badge-00 {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--amber);
+            color: #0f172a;
+            font-weight: 900;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .pinned-title {
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .pinned-arrow {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #34d399;
+            white-space: nowrap;
+        }
+
+        .pinned-00.bottom .pinned-arrow {
+            color: var(--emerald-dark);
+        }
+
+        /* Archive List Items */
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .archive-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 13px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            border-radius: 14px;
+            transition: background 0.16s ease;
+        }
+
+        .archive-row:hover {
+            background: #f8fafc;
+        }
+
+        .archive-row-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .num-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .archive-row:hover .num-badge {
+            background: var(--emerald);
+            color: #022c22;
+        }
+
+        .ride-link {
+            font-size: 0.96rem;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: color 0.18s;
+            word-break: break-word;
+        }
+
+        .ride-link:hover {
+            color: var(--emerald-dark);
+        }
+
+        .new-pill {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .archive-row-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .cat-badge {
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 7px;
+            white-space: nowrap;
+        }
+
+        .cat-tw { background: var(--emerald-soft); color: var(--emerald-dark); border: 1px solid var(--emerald-border); }
+        .cat-ca { background: var(--amber-soft); color: var(--amber-dark); border: 1px solid var(--amber-border); }
+        .cat-intl { background: var(--sky-soft); color: var(--sky); border: 1px solid var(--sky-border); }
+        .cat-2026 { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+        .edit-title-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.18s;
+            white-space: nowrap;
+        }
+
+        .edit-title-btn:hover {
+            background: var(--bg-navy);
+            color: #ffffff;
+            border-color: var(--bg-navy);
+        }
+
+        /* Inline Title Editor */
+        .inline-editor {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .inline-editor input {
+            flex: 1;
+            min-width: 210px;
+            padding: 7px 12px;
+            border-radius: 10px;
+            border: 2px solid var(--emerald);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .inline-editor button {
+            padding: 7px 12px;
+            border-radius: 9px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-save { background: var(--emerald); color: #022c22; }
+        .btn-cancel { background: #e2e8f0; color: #334155; }
+
+        /* Special Milestone Row #58 */
+        .milestone-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 15px 16px;
+            margin: 8px 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #fcd34d;
+            color: #78350f;
+        }
+
+        .milestone-num {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #fbbf24;
+            color: #451a03;
+            font-weight: 900;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .milestone-text {
+            font-weight: 800;
+            font-size: 0.96rem;
+            flex: 1;
+        }
+
+        .milestone-tag {
+            background: rgba(245, 158, 11, 0.22);
+            color: #92400e;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 48px 20px;
+        }
+
+        .empty-state.visible {
+            display: block;
+        }
+
+        .reset-btn {
+            margin-top: 14px;
+            background: var(--emerald-dark);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           Section 3: Photo Showcase Grid & Lightbox Modal
+           ========================================================================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #0f172a;
+            cursor: pointer;
+            padding: 0;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-zoom-pill {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 7px 14px;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(2, 6, 23, 0.92);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            max-width: 1020px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-height: 78vh;
+            width: auto;
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-caption {
+            margin-top: 14px;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(30, 41, 59, 0.85);
+            padding: 6px 16px;
+            border-radius: 999px;
+        }
+
+        .lb-btn {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lb-btn:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .lb-close { top: 20px; right: 20px; }
+        .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+        .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+
+        /* ==========================================================================
+           Footer
+           ========================================================================== */
+        .footer {
+            background: var(--bg-navy);
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 36px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-title {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: #34d399;
+        }
+
+        /* ==========================================================================
+           Responsive Breakpoints (Tablet & Mobile)
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
-    </script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-emerald-500 selection:text-white">
 
-    <!-- Top Sticky Navigation Bar -->
-    <nav class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-2.5 font-bold text-base sm:text-lg tracking-tight">
-                <span class="bg-emerald-500 text-slate-950 w-8 h-8 rounded-lg flex items-center justify-center shadow-sm">
-                    <i class="fa-solid fa-person-biking"></i>
-                </span>
-                <span class="truncate">太平洋兩岸單車漫遊</span>
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .archive-panel {
+                padding: 20px 16px;
+            }
+            .cat-badge, .milestone-tag {
+                display: none;
+            }
+            .hero-master-btn {
+                font-size: 0.85rem;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Top Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-inner">
+            <a href="#" class="brand">
+                <span class="brand-icon">🚲</span>
+                <span>🚲 腳踏車遊記 | Tour de California &amp; Taiwan</span>
             </a>
-            <div class="flex items-center gap-2 sm:gap-5 text-xs sm:text-sm font-medium text-slate-300">
-                <a href="#featured" class="hover:text-emerald-400 transition-colors px-2 py-1.5 rounded-lg">精選路線</a>
-                <a href="#archive" class="hover:text-emerald-400 transition-colors px-2 py-1.5 rounded-lg">完整目錄 (61)</a>
-                <a href="#gallery" class="hover:text-emerald-400 transition-colors px-2 py-1.5 rounded-lg">單車寫真</a>
+            <div class="nav-links">
+                <a href="#featured" class="nav-link">精選路線</a>
+                <a href="#archive" class="nav-link">63篇完整遊記</a>
+                <a href="#gallery" class="nav-link">攝影集錦</a>
+                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="nav-link nav-link-featured">
+                    00. 矽谷工程師旅遊美食 ↗
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Header Section -->
-    <header class="relative overflow-hidden bg-slate-900 text-white pt-12 pb-16 sm:pt-20 sm:pb-24">
-        <!-- Topographic / Gradient Decorative Accents -->
-        <div class="absolute inset-0 opacity-20 pointer-events-none"
-             style="background-image: radial-gradient(#10b981 1px, transparent 1px), radial-gradient(#f59e0b 1px, #0f172a 1px); background-size: 40px 40px; background-position: 0 0, 20px 20px;">
-        </div>
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <!-- Status Pill -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/90 border border-slate-700 text-emerald-400 text-xs sm:text-sm font-semibold mb-6 shadow-md">
+    <!-- Scenic Dark-Navy/Emerald Hero Banner -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-pill">
                 <span>🚴 台灣</span>
-                <span class="text-slate-500">•</span>
+                <span>•</span>
                 <span>🇺🇸 加州</span>
-                <span class="text-slate-500">•</span>
-                <span>2020 – 2025</span>
+                <span>•</span>
+                <span>2020 – 2026</span>
             </div>
 
-            <!-- Main H1 Title -->
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4">
-                <span class="block">🚲 腳踏車遊記 : 加州和台灣 🚴</span>
-            </h1>
+            <h1 class="hero-title">腳踏車遊記 : 加州和台灣</h1>
+            <p class="hero-subtitle">太平洋兩岸 腳踏車漫遊 — Tour de California &amp; Tour de Taiwan (2020–2026)</p>
 
-            <!-- Subtitle -->
-            <p class="text-lg sm:text-2xl font-medium text-slate-300 max-w-3xl mx-auto mb-3">
-                太平洋兩岸 腳踏車漫遊 • 台灣 + 🇺🇸 加州
-            </p>
-            <p class="text-sm sm:text-base text-amber-400 font-semibold tracking-wide uppercase mb-8">
-                Tour de California &amp; Tour de Taiwan (2020–2025)
-            </p>
+            <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="hero-master-btn">
+                <span class="badge-00">00</span>
+                <span>💻👨 矽谷工程師 (2012-2026) 🛫旅遊 + ⛴郵輪 + 🍱美食</span>
+                <span>↗</span>
+            </a>
 
-            <!-- Featured Master Link (Entry 00) -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
-                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all duration-200 hover:-translate-y-0.5">
-                    <span class="bg-slate-950/15 px-2 py-0.5 rounded-md text-xs font-extrabold">00</span>
-                    <span>💻👨 矽谷工程師 (2012-2025) 🛫旅遊 + ⛴郵輪 + 🍱美食</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                </a>
-            </div>
-
-            <!-- Quick Stats Bar -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5 max-w-4xl mx-auto">
-                <div class="bg-slate-800/70 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-4">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-white">61+</div>
-                    <div class="text-xs sm:text-sm text-slate-400 mt-1">篇單車漫遊全紀錄</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value emerald">63 篇單車遊記</div>
+                    <div class="stat-label">完整圖文騎行實錄</div>
                 </div>
-                <div class="bg-slate-800/70 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-4">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">6 年</div>
-                    <div class="text-xs sm:text-sm text-slate-400 mt-1">2020 – 2025 跨海征戰</div>
+                <div class="stat-card">
+                    <div class="stat-value">2020–2026</div>
+                    <div class="stat-label">跨太平洋騎跡</div>
                 </div>
-                <div class="bg-slate-800/70 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-4">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">4 次+</div>
-                    <div class="text-xs sm:text-sm text-slate-400 mt-1">台灣環島 &amp; 四極點縱騎</div>
-                </div>
-                <div class="bg-slate-800/70 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-4">
-                    <div class="text-2xl sm:text-3xl font-extrabold text-sky-400">4 國</div>
-                    <div class="text-xs sm:text-sm text-slate-400 mt-1">美國 • 台灣 • 日本 • 歐洲</div>
+                <div class="stat-card">
+                    <div class="stat-value amber">加州・台灣・日本・歐洲</div>
+                    <div class="stat-label">四大洲際經典路線</div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-20">
+    <main class="container main-content">
 
-        <!-- SECTION 1: 15 Featured Photo Cards -->
-        <section id="featured" class="scroll-mt-24">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <!-- SECTION 1: Featured 15 Routes Grid -->
+        <section id="featured">
+            <div class="section-header">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">
-                        Featured Routes • 精選路線圖輯
-                    </span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-                        經典單車路線精選 (15 條代表作)
-                    </h2>
+                    <span class="section-kicker kicker-emerald">Featured Routes • 精選 15 大經典路線</span>
+                    <h2 class="section-title">精選 15 大經典路線</h2>
                 </div>
-                <p class="text-sm text-slate-500">
-                    點擊卡片直接閱讀 Mobile01 完整圖文遊記
-                </p>
+                <p class="section-hint">點擊任一路線卡片前往 Mobile01 閱讀完整遊記</p>
             </div>
 
-            <!-- Responsive 3-Column Grid (1 col mobile, 2 col tablet, 3 col desktop) -->
-            <div id="featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Cards injected cleanly via JavaScript -->
-            </div>
+            <div id="featured-grid" class="featured-grid"></div>
         </section>
 
-        <!-- SECTION 2: Interactive Ride Archive (All 61 Entries + Entry 00) -->
-        <section id="archive" class="scroll-mt-24">
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200/90 p-6 sm:p-8 lg:p-10">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-slate-100">
+        <!-- SECTION 2: Complete 63-Ride Chronological Archive -->
+        <section id="archive">
+            <div class="archive-panel">
+                <div class="archive-top-bar">
                     <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
-                            Complete Logbook • 完整遊記索引
-                        </span>
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-                            2020–2025 單車漫遊編年史 (01 – 61)
-                        </h2>
-                        <p class="text-sm text-slate-500 mt-1">
-                            依時間倒序排列，支援地區篩選與關鍵字即時搜尋（如：武嶺、金門大橋、環島、Insta360）
+                        <span class="section-kicker kicker-amber">Complete Archive • 01 – 63 編年全紀錄</span>
+                        <h2 class="section-title">完整單車遊記目錄 (01–63 + 00 總目錄)</h2>
+                        <p class="section-hint" style="margin-top: 4px;">
+                            依時間倒序排列，支援地區篩選、年份篩選、關鍵字搜尋，並可自訂編輯 2026 新篇標題
                         </p>
                     </div>
 
-                    <!-- Search Box -->
-                    <div class="relative w-full lg:w-80">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <div class="search-wrapper">
+                        <span class="search-icon">🔍</span>
                         <input type="text"
                                id="search-input"
-                               placeholder="搜尋地點、年份或車種..."
-                               class="w-full pl-10 pr-10 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all">
-                        <button id="clear-search"
-                                title="清除搜尋"
-                                class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                        </button>
+                               class="search-input"
+                               placeholder="搜尋地點、年份或車種...">
+                        <button type="button" id="clear-search" class="clear-btn" title="清除搜尋">✕</button>
                     </div>
                 </div>
 
-                <!-- Interactive Filter Tabs -->
-                <div class="flex flex-wrap items-center justify-between gap-4 my-6">
-                    <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter rides by region">
-                        <button data-filter="all"
-                                class="filter-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-900 text-white shadow-sm">
-                            全部路線 <span class="ml-1 opacity-75" id="count-all">(61)</span>
-                        </button>
-                        <button data-filter="california"
-                                class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
-                            🇺🇸 美國加州 / 美洲 <span class="ml-1 opacity-75" id="count-ca"></span>
-                        </button>
-                        <button data-filter="taiwan"
-                                class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
-                            🚴 台灣本島 <span class="ml-1 opacity-75" id="count-tw"></span>
-                        </button>
-                        <button data-filter="intl"
-                                class="filter-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-100 text-slate-700 hover:bg-slate-200">
-                            🌏 日本 / 歐洲 / 大溪地 <span class="ml-1 opacity-75" id="count-intl"></span>
-                        </button>
-                    </div>
-
-                    <div id="result-status" class="text-xs sm:text-sm font-medium text-slate-500">
-                        顯示全部 61 筆紀錄
-                    </div>
-                </div>
-
-                <!-- Top Master Banner (00) -->
-                <div class="mb-4">
-                    <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="flex items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white hover:from-emerald-900 hover:to-slate-800 transition-all shadow-sm group">
-                        <div class="flex items-center gap-3.5 min-w-0">
-                            <span class="shrink-0 w-10 h-10 rounded-xl bg-amber-400 text-slate-950 font-extrabold text-sm flex items-center justify-center">
-                                00
-                            </span>
-                            <span class="font-bold text-sm sm:text-base truncate">
-                                (2012-2025) 💻👨 🛫旅遊 + ⛴郵輪 + 🍱美食
-                            </span>
+                <!-- Filter Controls -->
+                <div class="filters-area">
+                    <div class="filter-row">
+                        <div class="pill-group" id="region-filters">
+                            <button type="button" class="filter-pill active" data-region="all">全部 (63)</button>
+                            <button type="button" class="filter-pill" data-region="california">美國加州/美洲</button>
+                            <button type="button" class="filter-pill" data-region="taiwan">台灣本島</button>
+                            <button type="button" class="filter-pill" data-region="intl">日本/歐洲/大溪地</button>
                         </div>
-                        <span class="shrink-0 text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">
-                            總目錄 <i class="fa-solid fa-chevron-right ml-1"></i>
-                        </span>
-                    </a>
+                        <div id="result-count" class="result-count">顯示 63 / 63 筆紀錄</div>
+                    </div>
+
+                    <div class="pill-group" id="year-filters">
+                        <button type="button" class="filter-pill year-pill active" data-year="all">全部年份</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2026">2026</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2025">2025</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2024">2024</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2023">2023</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2022">2022</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2021">2021</button>
+                        <button type="button" class="filter-pill year-pill" data-year="2020">2020</button>
+                    </div>
                 </div>
 
-                <!-- Ride Entries List -->
-                <div id="archive-list" class="divide-y divide-slate-100">
-                    <!-- Entries populated by JS -->
+                <!-- Top Pinned Special Banner 00 -->
+                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="pinned-00">
+                    <div class="pinned-left">
+                        <span class="num-badge-00">00</span>
+                        <span class="pinned-title">00. 💻👨 矽谷工程師 (2012-2026) 🛫旅遊 + ⛴郵輪 + 🍱美食</span>
+                    </div>
+                    <span class="pinned-arrow">前往總目錄 →</span>
+                </a>
+
+                <!-- Chronological List 63 -> 01 -->
+                <div id="archive-list" class="archive-list"></div>
+
+                <!-- Empty Search State -->
+                <div id="empty-state" class="empty-state">
+                    <div style="font-size: 2.2rem; margin-bottom: 8px;">🚲💨</div>
+                    <h3 style="font-size: 1.1rem; font-weight: 800;">找不到符合條件的單車遊記</h3>
+                    <p class="section-hint" style="margin-top: 4px;">請嘗試更換關鍵字，或點擊下方按鈕重設篩選條件。</p>
+                    <button type="button" id="reset-filters" class="reset-btn">重設全部篩選</button>
                 </div>
 
-                <!-- Empty State (when search finds nothing) -->
-                <div id="empty-state" class="hidden py-14 text-center">
-                    <div class="text-4xl mb-3">🚲💨</div>
-                    <h3 class="text-lg font-bold text-slate-800">找不到符合的單車遊記</h3>
-                    <p class="text-sm text-slate-500 mt-1">試試看搜尋其他關鍵字，或點選「全部路線」查看所有紀錄。</p>
-                    <button id="reset-filters-btn"
-                            class="mt-4 px-5 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-500 transition-colors">
-                        重設篩選條件
-                    </button>
-                </div>
-
-                <!-- Bottom Master Banner (00) -->
-                <div class="mt-6 pt-4 border-t border-slate-100">
-                    <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="flex items-center justify-between gap-4 p-4 rounded-2xl bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-200 text-slate-800 transition-all group">
-                        <div class="flex items-center gap-3.5 min-w-0">
-                            <span class="shrink-0 w-10 h-10 rounded-xl bg-slate-900 text-amber-400 font-extrabold text-sm flex items-center justify-center">
-                                00
-                            </span>
-                            <span class="font-bold text-sm sm:text-base truncate">
-                                💻👨 矽谷工程師 (2012-2025) 🛫旅遊 + ⛴郵輪 + 🍱美食
-                            </span>
-                        </div>
-                        <span class="shrink-0 text-xs font-semibold text-emerald-700 group-hover:translate-x-1 transition-transform">
-                            前往閱讀 <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                        </span>
-                    </a>
-                </div>
+                <!-- Bottom Pinned Special Banner 00 -->
+                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="pinned-00 bottom">
+                    <div class="pinned-left">
+                        <span class="num-badge-00">00</span>
+                        <span class="pinned-title">00. 💻👨 矽谷工程師 (2012-2026) 🛫旅遊 + ⛴郵輪 + 🍱美食</span>
+                    </div>
+                    <span class="pinned-arrow">前往總目錄 →</span>
+                </a>
             </div>
         </section>
 
-        <!-- SECTION 3: Bottom Photo Showcase / Lightbox Gallery -->
-        <section id="gallery" class="scroll-mt-24">
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <!-- SECTION 3: Photo Showcase & Lightbox Modal -->
+        <section id="gallery">
+            <div class="section-header">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-100 px-3 py-1 rounded-full">
-                        Photo Showcase • 單車寫真集
-                    </span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
-                        輪跡風景紀念牆
-                    </h2>
+                    <span class="section-kicker kicker-sky">Photo Showcase • 騎行攝影集錦</span>
+                    <h2 class="section-title">騎行攝影集錦</h2>
                 </div>
-                <p class="text-sm text-slate-500">
-                    點擊任一張照片可開啟全螢幕高清預覽
-                </p>
+                <p class="section-hint">點擊任意照片開啟全螢幕檢視（支援鍵盤左右鍵切換與 ESC 關閉）</p>
             </div>
 
-            <div id="showcase-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <!-- 8 standalone images populated via JS -->
-            </div>
+            <div id="gallery-grid" class="gallery-grid"></div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-12 mt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+    <footer class="footer">
+        <div class="container footer-inner">
             <div>
-                <div class="text-white font-bold text-base flex items-center justify-center sm:justify-start gap-2">
-                    <span>🚲 腳踏車遊記 : 加州和台灣</span>
+                <div class="footer-title">🚲 腳踏車遊記 : 加州和台灣</div>
+                <div style="font-size: 0.82rem; margin-top: 4px;">
+                    Tour de California &amp; Tour de Taiwan (2020–2026) • 太平洋兩岸單車漫遊全紀錄
                 </div>
-                <p class="text-xs text-slate-400 mt-1">
-                    Tour de California &amp; Tour de Taiwan (2020–2025) • 太平洋兩岸單車漫遊全紀錄
-                </p>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">
+            <div class="footer-links">
+                <a href="https://www.mobile01.com/topicdetail.php?f=409&t=6399759" target="_blank" rel="noopener noreferrer">
                     Mobile01 旅遊美食總覽
                 </a>
-                <span class="text-slate-700">|</span>
-                <a href="#" class="text-xs font-semibold text-slate-300 hover:text-white transition-colors">
-                    回到頂部 ↑
-                </a>
+                <span>•</span>
+                <a href="#">回到頂部 ↑</a>
             </div>
         </div>
     </footer>
 
-    <!-- Lightbox Modal for Bottom Photo Showcase -->
-    <div id="lightbox-modal"
-         role="dialog"
-         aria-modal="true"
-         aria-label="圖片放大檢視"
-         class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8">
-        <!-- Close Button -->
-        <button id="lightbox-close"
-                aria-label="關閉預覽"
-                class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <!-- Previous Button -->
-        <button id="lightbox-prev"
-                aria-label="上一張"
-                class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-
-        <!-- Next Button -->
-        <button id="lightbox-next"
-                aria-label="下一張"
-                class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg transition-colors">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
-        <!-- Image Container -->
-        <div class="max-w-5xl w-full flex flex-col items-center">
-            <img id="lightbox-img"
-                 src=""
-                 alt="單車寫真放大預覽"
-                 class="max-h-[80vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain border border-white/10">
-            <div id="lightbox-caption" class="mt-4 text-sm font-medium text-slate-300 bg-slate-900/80 px-4 py-1.5 rounded-full">
-                1 / 8
-            </div>
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="攝影集錦放大預覽">
+        <button type="button" id="lb-close" class="lb-btn lb-close" aria-label="關閉">✕</button>
+        <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="上一張">‹</button>
+        <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="下一張">›</button>
+        <div class="lightbox-inner">
+            <img id="lb-img" class="lightbox-img" src="" alt="單車攝影放大檢視">
+            <div id="lb-caption" class="lightbox-caption">1 / 8</div>
         </div>
     </div>
 
     <script>
-        // Graceful SVG placeholder generator when external hotlinking is blocked
-        function createFallbackSvg(label) {
-            const safeText = encodeURIComponent(label || 'Cycling Photo');
-            return `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%231e293b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='500' fill='url(%23g)'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='%2310b981' font-family='sans-serif' font-size='44'%3E%F0%9F%9A%B4%3C/text%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-family='sans-serif' font-size='22' font-weight='bold'%3E${safeText}%3C/text%3E%3C/svg%3E`;
+        /* ==========================================================================
+           Graceful SVG Scenic Fallback Generator (Zero External Dependencies)
+           ========================================================================== */
+        function getScenicFallback(title) {
+            const safeTitle = encodeURIComponent(title || "單車漫遊風景");
+            return "data:image/svg+xml;charset=UTF-8," +
+                "%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E" +
+                "%3Cdefs%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='1' y2='1'%3E" +
+                "%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23064e3b'/%3E" +
+                "%3C/linearGradient%3E%3C/defs%3E" +
+                "%3Crect width='800' height='500' fill='url(%23sky)'/%3E" +
+                "%3Ccircle cx='640' cy='110' r='44' fill='%23f59e0b' opacity='0.85'/%3E" +
+                "%3Cpath d='M0 370 L180 230 L340 340 L520 200 L800 380 L800 500 L0 500 Z' fill='%231e293b' opacity='0.9'/%3E" +
+                "%3Cpath d='M0 410 L260 280 L470 390 L670 270 L800 370 L800 500 L0 500 Z' fill='%23022c22'/%3E" +
+                "%3Ctext x='50%25' y='44%25' dominant-baseline='middle' text-anchor='middle' fill='%2334d399' font-family='sans-serif' font-size='42'%3E%F0%9F%9A%B4%3C/text%3E" +
+                "%3Ctext x='50%25' y='57%25' dominant-baseline='middle' text-anchor='middle' fill='%23f8fafc' font-family='sans-serif' font-size='22' font-weight='bold'%3E" + safeTitle + "%3C/text%3E" +
+                "%3C/svg%3E";
         }
 
-        // 1. All 15 Featured Photo Cards (Exact URLs, images, and titles preserved)
-        const featuredRides = [
+        /* ==========================================================================
+           1. Featured Routes Data (Including 2026 New Entries + 15 Classic Routes)
+           ========================================================================== */
+        const STORAGE_KEY_FEATURED_IMGS = "cycling_travelogue_featured_imgs_v1";
+
+        const featuredRoutes = [
+            {
+                id: "7315328",
+                editableImg: true,
+                title: "(2026 June) 閃電遊高雄 Specialized Tarmac SL8",
+                url: "https://www.mobile01.com/topicdetail.php?f=320&t=7315328",
+                img: "https://attach.mobile01.com/attach/202601/mobile01-885abd537e16629cf1fc32f2fdf1aab7.jpg",
+                tag: "2026 NEW • 台灣高雄",
+                tagClass: "tag-tw"
+            },
+            {
+                id: "7241094",
+                editableImg: true,
+                title: "(2026 March) 再騎拉斯唯加斯大道",
+                url: "https://www.mobile01.com/topicdetail.php?f=320&t=7241094",
+                img: "https://attach.mobile01.com/attach/202601/mobile01-c487b6387d45c6997c2f970604282bcf.jpg",
+                tag: "2026 NEW • 美國內華達",
+                tagClass: "tag-ca"
+            },
             {
                 title: "舊金山 金門大橋",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6749196",
-                img: "https://attach.mobile01.com/attach/202112/mobile01-642186fad9537ccf66236d9810f79f33.jpg"
+                img: "https://attach.mobile01.com/attach/202112/mobile01-642186fad9537ccf66236d9810f79f33.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "花蓮 - 太魯閣 - 天祥",
-                region: "台灣",
-                badgeClass: "bg-emerald-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6279161",
-                img: "https://attach.mobile01.com/attach/202112/mobile01-f23e071fc85e9c7726d52479c33a521e.jpg"
+                img: "https://attach.mobile01.com/attach/202112/mobile01-f23e071fc85e9c7726d52479c33a521e.jpg",
+                tag: "台灣本島",
+                tagClass: "tag-tw"
             },
             {
                 title: "北加漂亮濱海太平洋公路",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6388252",
-                img: "https://attach.mobile01.com/attach/202112/mobile01-360313feb644624f1b4cf397e0efa518.jpg"
+                img: "https://attach.mobile01.com/attach/202112/mobile01-360313feb644624f1b4cf397e0efa518.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "四極點大環島",
-                region: "台灣",
-                badgeClass: "bg-emerald-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6698489",
-                img: "https://attach.mobile01.com/attach/202211/mobile01-28d6ca9115d10f630e0dfe83f7d76949.jpg"
+                img: "https://attach.mobile01.com/attach/202211/mobile01-28d6ca9115d10f630e0dfe83f7d76949.jpg",
+                tag: "台灣本島",
+                tagClass: "tag-tw"
             },
             {
                 title: "台灣縱騎 剖地瓜",
-                region: "台灣",
-                badgeClass: "bg-emerald-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786807",
-                img: "https://attach.mobile01.com/attach/202305/mobile01-1463e88743f9b8b192c32bc33e45608c.png"
+                img: "https://attach.mobile01.com/attach/202305/mobile01-1463e88743f9b8b192c32bc33e45608c.png",
+                tag: "台灣本島",
+                tagClass: "tag-tw"
             },
             {
                 title: "17哩風景路",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6361037",
-                img: "https://attach.mobile01.com/attach/202105/mobile01-d322ebafae6143e1119512ab719872b4.jpg"
+                img: "https://attach.mobile01.com/attach/202105/mobile01-d322ebafae6143e1119512ab719872b4.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "琵琶湖 環湖漫騎",
-                region: "日本",
-                badgeClass: "bg-sky-500/90 text-white",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786811",
-                img: "https://attach.mobile01.com/attach/202305/mobile01-f602ef40f67e15ba6c8e80187b2d8451.jpg"
+                img: "https://attach.mobile01.com/attach/202305/mobile01-f602ef40f67e15ba6c8e80187b2d8451.jpg",
+                tag: "日本滋賀",
+                tagClass: "tag-jp"
             },
             {
                 title: "漫騎太浩湖",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6670405",
-                img: "https://attach.mobile01.com/attach/202209/mobile01-72f998abc480bcc05537593057b1f0a6.jpg"
+                img: "https://attach.mobile01.com/attach/202209/mobile01-72f998abc480bcc05537593057b1f0a6.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "日月潭漫騎",
-                region: "台灣",
-                badgeClass: "bg-emerald-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6700250",
-                img: "https://attach.mobile01.com/attach/202211/mobile01-a36022df07578b8720f8cbaf7362bd56.jpg"
+                img: "https://attach.mobile01.com/attach/202211/mobile01-a36022df07578b8720f8cbaf7362bd56.jpg",
+                tag: "台灣本島",
+                tagClass: "tag-tw"
             },
             {
                 title: "漫遊矽谷 1",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6427939",
-                img: "https://attach.mobile01.com/attach/202108/mobile01-2591613b2e85c4cc7e3db94d607f5f30.jpg"
+                img: "https://attach.mobile01.com/attach/202108/mobile01-2591613b2e85c4cc7e3db94d607f5f30.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "漫遊矽谷 2",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6437675",
-                img: "https://attach.mobile01.com/attach/202108/mobile01-4b32316dc3b83df07b9cebc318edaa76.jpg"
+                img: "https://attach.mobile01.com/attach/202108/mobile01-4b32316dc3b83df07b9cebc318edaa76.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "🌺聖荷西🌹玫瑰公園🌹",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6616649",
-                img: "https://attach.mobile01.com/attach/202206/mobile01-76b89aba89b91856c262706204f3766f.jpg"
+                img: "https://attach.mobile01.com/attach/202206/mobile01-76b89aba89b91856c262706204f3766f.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "聖地牙哥漫騎",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6731628",
-                img: "https://attach.mobile01.com/attach/202301/mobile01-845e406705344b0201f61398b8198bee.jpg"
+                img: "https://attach.mobile01.com/attach/202301/mobile01-845e406705344b0201f61398b8198bee.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "爾灣 三日漫騎",
-                region: "加州",
-                badgeClass: "bg-amber-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6730711",
-                img: "https://attach.mobile01.com/attach/202301/mobile01-94652b628f495413ee77b4c4e6f6801e.jpg"
+                img: "https://attach.mobile01.com/attach/202301/mobile01-94652b628f495413ee77b4c4e6f6801e.jpg",
+                tag: "美國加州",
+                tagClass: "tag-ca"
             },
             {
                 title: "埔里 三日漫騎",
-                region: "台灣",
-                badgeClass: "bg-emerald-500/90 text-slate-950",
                 url: "https://www.mobile01.com/topicdetail.php?f=320&t=6701507",
-                img: "https://attach.mobile01.com/attach/202211/mobile01-99b5863e369fc5f7625af39ee91c4fcb.jpg"
+                img: "https://attach.mobile01.com/attach/202211/mobile01-99b5863e369fc5f7625af39ee91c4fcb.jpg",
+                tag: "台灣本島",
+                tagClass: "tag-tw"
             }
         ];
 
-        // 2. All 61 Chronological Archive Entries (Exact titles & links preserved)
+        /* ==========================================================================
+           2. Complete 63-Ride Chronological Archive Data (63 down to 01)
+           ========================================================================== */
+        const STORAGE_KEY_CUSTOM_TITLES = "cycling_travelogue_custom_titles_v2";
+
         const archiveRides = [
-            { num: "61", cat: "taiwan", title: "(2025 夏天) 🚴🚴TCR+ZIPP 夏天漫遊高雄", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7139017" },
-            { num: "60", cat: "intl", tagNote: "荷蘭 / 歐洲", title: "(2025 春天) 🚴🇾🇪漫騎 阿姆斯特丹", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7119975" },
-            { num: "59", cat: "california", title: "(2025 春天) 🚴🇺🇸 eMTB 漫騎 Anaheim Hills", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7115988" },
-            { num: "58", cat: "milestone", isMilestone: true, title: "(2024 春夏秋冬 ) 💤🥱😢 術後休息一年 🤧🥳💤", url: null },
-            { num: "57", cat: "california", title: "[2023冬至] 🚴🇺🇸 TREK 漫遊 洛杉磯 好萊塢", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6895347" },
-            { num: "56", cat: "california", title: "[2023大雪] 🚴🇺🇸 TREK 漫遊 Monterey 17哩風景路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6888487" },
-            { num: "55", cat: "california", title: "[2023大雪] 🚴🇺🇸 TREK 漫遊 舊金山 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6886442" },
-            { num: "54", cat: "taiwan", title: "[2023立冬] 🚴🚴 E+Bike 環島 -浪漫 台3線, 最美東海岸 台11線", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6876196" },
-            { num: "53", cat: "intl", tagNote: "大溪地", title: "[2023寒露] 🚴🇫🇷 大溪地 一日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6861513" },
-            { num: "52", cat: "california", tagNote: "美國夏威夷", title: "[2023寒露] 🚴🇺🇸 夏威夷 Waikiki 一日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6858138" },
-            { num: "51", cat: "intl", tagNote: "日本", title: "[2023立夏] 🚴🇯🇵 琵琶湖 環湖漫騎 二日", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786811" },
-            { num: "50", cat: "taiwan", title: "[2023立夏] 🚴🚴 台灣縱騎 剖地瓜 七日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786807" },
-            { num: "49", cat: "taiwan", title: "[2023清明] 🚴🚴 北進武嶺 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6769793" },
-            { num: "48", cat: "california", title: "[2023驚蟄] 🚴🇺🇸 漫騎 蒙特利灣 & 17英里海岸公路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6752243" },
-            { num: "47", cat: "california", title: "[2023立春] 🚴🇺🇸 漫騎 舊金山 金門公園 & 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6749196" },
-            { num: "46", cat: "california", title: "[2023春節] 🚴🇺🇸 聖塔芭芭拉 春節漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6732596" },
-            { num: "45", cat: "california", title: "[2023春節] 🚴🇺🇸 聖地牙哥 春節漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6731628" },
-            { num: "44", cat: "california", title: "[2023春節] 🚴🇺🇸 爾灣 春節三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6730711" },
-            { num: "43", cat: "taiwan", title: "[2022秋] 🚴🚴 美濃 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6704010" },
-            { num: "42", cat: "taiwan", title: "[2022秋] 🚴🚴 埔里 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6701507" },
-            { num: "41", cat: "taiwan", title: "[2022秋] 🚴🚴 日月潭漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6700250" },
-            { num: "40", cat: "taiwan", title: "[2022秋] 🚴🚴 捷安特四極點大環島", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6698489" },
-            { num: "39", cat: "california", title: "[2022秋] 🚴🇺🇸 秋分漫騎太浩湖", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6670405" },
-            { num: "38", cat: "california", title: "[2022秋] 🚴🇺🇸 中秋漫騎舊金山灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6660086" },
-            { num: "37", cat: "california", title: "[2022夏] 🚴🇺🇸 Alum Rock Park 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6628400" },
-            { num: "36", cat: "california", title: "[2022夏] 🚴🇺🇸 半月灣 Half Moon Bay 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6622246" },
-            { num: "35", cat: "california", title: "[2022夏] 🚴🇺🇸 蒙特雷灣 Monterey & Pebble Beach 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6620894" },
-            { num: "34", cat: "california", title: "[2022春] 🚴🇺🇸 🌺聖荷西🌹玫瑰公園🌹", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6616649" },
-            { num: "33", cat: "california", title: "[2022春] 🚴🇺🇸 舊金山 金門大橋 春遊漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6571372" },
-            { num: "32", cat: "taiwan", title: "[2022春] 🚴🚴 第一次上武嶺", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6555554" },
-            { num: "31", cat: "taiwan", title: "[2022春] 🚴🚴 第四次環島 - Giant 高雄出發", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6555553" },
-            { num: "30", cat: "california", title: "(2021冬) 🚴🇺🇸 漫騎 舊金山 海灣大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6504001" },
-            { num: "29", cat: "california", title: "(2021冬) 🚴🇺🇸 漫騎 舊金山市區: Cable Car & Lombard st", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6500214" },
-            { num: "28", cat: "california", title: "(2021秋) 🚴🇺🇸 漫騎賞秋 納帕酒莊 : Napa Valley", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6487350" },
-            { num: "27", cat: "california", tagNote: "美國亞利桑那", title: "(2021秋) 🚴🇺🇸 漫遊 亞利桑那州 - 馬蹄灣 & 羚羊峽谷", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6483621" },
-            { num: "26", cat: "california", tagNote: "美國內華達", title: "(2021秋) 🚴🇺🇸 漫騎 拉斯維加斯 & Red Rock NP", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6482689" },
-            { num: "25", cat: "california", title: "(2021秋) 🚴🇺🇸 漫騎 南加州最美最貴新港灘 - Ocean Blvd", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6481487" },
-            { num: "24", cat: "california", title: "(2021秋) 🚴🇺🇸 漫騎 太平洋海岸1號公路 : Big Sur", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6473937" },
-            { num: "23", cat: "california", title: "(2021秋) 🚴🇺🇸 環湖漫騎 太浩湖 : Lake Tahoe", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6471101" },
-            { num: "22", cat: "california", title: "(2021秋) 🚴🇺🇸 Insta360 全景漫騎 北加 半月灣", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6465823" },
-            { num: "21", cat: "california", title: "(2021秋) 🚴🇺🇸 Insta360 全景漫騎 聖荷西 社區小徑", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6464933" },
-            { num: "20", cat: "california", title: "(2021秋) 🚴🇺🇸 Insta360全景漫騎 北加蒙特雷灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6455394" },
-            { num: "19", cat: "california", title: "(2021秋) 🚴🇺🇸 RayBan 智慧眼鏡 漫騎 北加蒙特雷灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6454975" },
-            { num: "18", cat: "california", title: "(2021秋) 🚴🇺🇸 Insta360全景漫騎 舊金山 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6450834" },
-            { num: "17", cat: "california", title: "(2021夏) 🚴🇺🇸 Giant 捷安特 Defy 漫遊矽谷 (2/2)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6437675" },
-            { num: "16", cat: "california", title: "(2021夏) 🚴🇺🇸 Giant 捷安特 TCR 漫遊矽谷 (1/2)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6427939" },
-            { num: "15", cat: "california", title: "(2021夏) 🚴🇺🇸 北加漂亮濱海太平洋公路 一日騎遊 : Half Moon Bay", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6388252" },
-            { num: "14", cat: "california", title: "(2021夏) 🚴🇺🇸 漫騎美國高球公開賽Torrey Pines & 人間仙境La Jolla", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6382763" },
-            { num: "13", cat: "california", tagNote: "美國內華達", title: "(2021夏) 🚴🇺🇸 漫騎迷人拉斯維加斯大道", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6380322" },
-            { num: "12", cat: "california", title: "(2021夏) 🚴🇺🇸 南加最美最貴海邊一日遊: Newport Beach", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6376438" },
-            { num: "11", cat: "california", title: "(2021春) 🚴🇺🇸 Monterey 17 哩風景路 來回輕騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6361037" },
-            { num: "10", cat: "california", title: "(2021春) 🚴🇺🇸 舊金山一日騎游: 金門公園 - 金門大橋 - 美術宮", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6333545" },
-            { num: "09", cat: "taiwan", title: "(2021初) 🚴🚴 花蓮 - 中橫 - 天祥: 單車健騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6279161" },
-            { num: "08", cat: "taiwan", title: "(2021初) 🚴🚴 單車環島趣 9天8夜 (捷安特)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6274777" },
-            { num: "07", cat: "taiwan", title: "(2020冬) 🚴🚴 陽明山單車一日遊", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6266911" },
-            { num: "06", cat: "taiwan", title: "(2020冬) 🚴🚴 日月潭環騎三日", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6262849" },
-            { num: "05", cat: "taiwan", title: "(2020冬) 🚴🚴 高雄憶遊三日騎玩", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6259404" },
-            { num: "04", cat: "taiwan", title: "(2020冬) 🚴🚴 台東慢活 五日自由騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6253709" },
-            { num: "03", cat: "taiwan", title: "(2020秋) 🚴🚴 台灣縱騎 6天5夜 (捷安特)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6251111" },
-            { num: "02", cat: "taiwan", title: "(2020秋) 🚴🚴 臺北郊遊三日騎玩", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6240937" },
-            { num: "01", cat: "california", title: "(2020秋) 🚴🇺🇸 南加州: 太平洋海岸1號公路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6195909" }
+            { num: "63", year: "2026", region: "taiwan", isNew: true, editable: true, title: "(2026 June ) 🚴🚴 閃電遊高雄Specialized Tarmac SL8 + TRIPEAK 陶瓷BB 🚴🚴", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7315328" },
+            { num: "62", year: "2026", region: "california", regionLabel: "美國內華達", isNew: true, editable: true, title: "(2026 March) 🚴🇺🇸 再騎拉斯唯加斯大道", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7241094" },
+            { num: "61", year: "2025", region: "taiwan", title: "(2025 夏天) 🚴🚴TCR+ZIPP 夏天漫遊高雄", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7139017" },
+            { num: "60", year: "2025", region: "intl", regionLabel: "荷蘭/歐洲", title: "(2025 春天) 🚴🇾🇪漫騎 阿姆斯特丹", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7119975" },
+            { num: "59", year: "2025", region: "california", title: "(2025 春天) 🚴🇺🇸 eMTB 漫騎 Anaheim Hills", url: "https://www.mobile01.com/topicdetail.php?f=320&t=7115988" },
+            { num: "58", year: "2024", region: "milestone", isMilestone: true, title: "(2024 春夏秋冬 ) 💤🥱😢 術後休息一年 🤧🥳💤", url: null },
+            { num: "57", year: "2023", region: "california", title: "[2023冬至] 🚴🇺🇸 TREK 漫遊 洛杉磯 好萊塢", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6895347" },
+            { num: "56", year: "2023", region: "california", title: "[2023大雪] 🚴🇺🇸 TREK 漫遊 Monterey 17哩風景路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6888487" },
+            { num: "55", year: "2023", region: "california", title: "[2023大雪] 🚴🇺🇸 TREK 漫遊 舊金山 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6886442" },
+            { num: "54", year: "2023", region: "taiwan", title: "[2023立冬] 🚴🚴 E+Bike 環島 -浪漫 台3線, 最美東海岸 台11線", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6876196" },
+            { num: "53", year: "2023", region: "intl", regionLabel: "大溪地", title: "[2023寒露] 🚴🇫🇷 大溪地 一日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6861513" },
+            { num: "52", year: "2023", region: "california", regionLabel: "美國夏威夷", title: "[2023寒露] 🚴🇺🇸 夏威夷 Waikiki 一日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6858138" },
+            { num: "51", year: "2023", region: "intl", regionLabel: "日本滋賀", title: "[2023立夏] 🚴🇯🇵 琵琶湖 環湖漫騎 二日", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786811" },
+            { num: "50", year: "2023", region: "taiwan", title: "[2023立夏] 🚴🚴 台灣縱騎 剖地瓜 七日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6786807" },
+            { num: "49", year: "2023", region: "taiwan", title: "[2023清明] 🚴🚴 北進武嶺 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6769793" },
+            { num: "48", year: "2023", region: "california", title: "[2023驚蟄] 🚴🇺🇸 漫騎 蒙特利灣 & 17英里海岸公路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6752243" },
+            { num: "47", year: "2023", region: "california", title: "[2023立春] 🚴🇺🇸 漫騎 舊金山 金門公園 & 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6749196" },
+            { num: "46", year: "2023", region: "california", title: "[2023春節] 🚴🇺🇸 聖塔芭芭拉 春節漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6732596" },
+            { num: "45", year: "2023", region: "california", title: "[2023春節] 🚴🇺🇸 聖地牙哥 春節漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6731628" },
+            { num: "44", year: "2023", region: "california", title: "[2023春節] 🚴🇺🇸 爾灣 春節三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6730711" },
+            { num: "43", year: "2022", region: "taiwan", title: "[2022秋] 🚴🚴 美濃 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6704010" },
+            { num: "42", year: "2022", region: "taiwan", title: "[2022秋] 🚴🚴 埔里 三日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6701507" },
+            { num: "41", year: "2022", region: "taiwan", title: "[2022秋] 🚴🚴 日月潭漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6700250" },
+            { num: "40", year: "2022", region: "taiwan", title: "[2022秋] 🚴🚴 捷安特四極點大環島", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6698489" },
+            { num: "39", year: "2022", region: "california", title: "[2022秋] 🚴🇺🇸 秋分漫騎太浩湖", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6670405" },
+            { num: "38", year: "2022", region: "california", title: "[2022秋] 🚴🇺🇸 中秋漫騎舊金山灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6660086" },
+            { num: "37", year: "2022", region: "california", title: "[2022夏] 🚴🇺🇸 Alum Rock Park 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6628400" },
+            { num: "36", year: "2022", region: "california", title: "[2022夏] 🚴🇺🇸 半月灣 Half Moon Bay 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6622246" },
+            { num: "35", year: "2022", region: "california", title: "[2022夏] 🚴🇺🇸 蒙特雷灣 Monterey & Pebble Beach 夏日漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6620894" },
+            { num: "34", year: "2022", region: "california", title: "[2022春] 🚴🇺🇸 🌺聖荷西🌹玫瑰公園🌹", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6616649" },
+            { num: "33", year: "2022", region: "california", title: "[2022春] 🚴🇺🇸 舊金山 金門大橋 春遊漫騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6571372" },
+            { num: "32", year: "2022", region: "taiwan", title: "[2022春] 🚴🚴 第一次上武嶺", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6555554" },
+            { num: "31", year: "2022", region: "taiwan", title: "[2022春] 🚴🚴 第四次環島 - Giant 高雄出發", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6555553" },
+            { num: "30", year: "2021", region: "california", title: "(2021冬) 🚴🇺🇸 漫騎 舊金山 海灣大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6504001" },
+            { num: "29", year: "2021", region: "california", title: "(2021冬) 🚴🇺🇸 漫騎 舊金山市區: Cable Car & Lombard st", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6500214" },
+            { num: "28", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 漫騎賞秋 納帕酒莊 : Napa Valley", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6487350" },
+            { num: "27", year: "2021", region: "california", regionLabel: "美國亞利桑那", title: "(2021秋) 🚴🇺🇸 漫遊 亞利桑那州 - 馬蹄灣 & 羚羊峽谷", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6483621" },
+            { num: "26", year: "2021", region: "california", regionLabel: "美國內華達", title: "(2021秋) 🚴🇺🇸 漫騎 拉斯維加斯 & Red Rock NP", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6482689" },
+            { num: "25", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 漫騎 南加州最美最貴新港灘 - Ocean Blvd", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6481487" },
+            { num: "24", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 漫騎 太平洋海岸1號公路 : Big Sur", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6473937" },
+            { num: "23", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 環湖漫騎 太浩湖 : Lake Tahoe", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6471101" },
+            { num: "22", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 Insta360 全景漫騎 北加 半月灣", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6465823" },
+            { num: "21", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 Insta360 全景漫騎 聖荷西 社區小徑", url: "https://www.mobile01.com/topicdetail.php?f=735&t=6464933" },
+            { num: "20", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 Insta360全景漫騎 北加蒙特雷灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6455394" },
+            { num: "19", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 RayBan 智慧眼鏡 漫騎 北加蒙特雷灣", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6454975" },
+            { num: "18", year: "2021", region: "california", title: "(2021秋) 🚴🇺🇸 Insta360全景漫騎 舊金山 金門大橋", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6450834" },
+            { num: "17", year: "2021", region: "california", title: "(2021夏) 🚴🇺🇸 Giant 捷安特 Defy 漫遊矽谷 (2/2)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6437675" },
+            { num: "16", year: "2021", region: "california", title: "(2021夏) 🚴🇺🇸 Giant 捷安特 TCR 漫遊矽谷 (1/2)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6427939" },
+            { num: "15", year: "2021", region: "california", title: "(2021夏) 🚴🇺🇸 北加漂亮濱海太平洋公路 一日騎遊 : Half Moon Bay", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6388252" },
+            { num: "14", year: "2021", region: "california", title: "(2021夏) 🚴🇺🇸 漫騎美國高球公開賽Torrey Pines & 人間仙境La Jolla", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6382763" },
+            { num: "13", year: "2021", region: "california", regionLabel: "美國內華達", title: "(2021夏) 🚴🇺🇸 漫騎迷人拉斯維加斯大道", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6380322" },
+            { num: "12", year: "2021", region: "california", title: "(2021夏) 🚴🇺🇸 南加最美最貴海邊一日遊: Newport Beach", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6376438" },
+            { num: "11", year: "2021", region: "california", title: "(2021春) 🚴🇺🇸 Monterey 17 哩風景路 來回輕騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6361037" },
+            { num: "10", year: "2021", region: "california", title: "(2021春) 🚴🇺🇸 舊金山一日騎游: 金門公園 - 金門大橋 - 美術宮", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6333545" },
+            { num: "09", year: "2021", region: "taiwan", title: "(2021初) 🚴🚴 花蓮 - 中橫 - 天祥: 單車健騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6279161" },
+            { num: "08", year: "2021", region: "taiwan", title: "(2021初) 🚴🚴 單車環島趣 9天8夜 (捷安特)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6274777" },
+            { num: "07", year: "2020", region: "taiwan", title: "(2020冬) 🚴🚴 陽明山單車一日遊", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6266911" },
+            { num: "06", year: "2020", region: "taiwan", title: "(2020冬) 🚴🚴 日月潭環騎三日", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6262849" },
+            { num: "05", year: "2020", region: "taiwan", title: "(2020冬) 🚴🚴 高雄憶遊三日騎玩", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6259404" },
+            { num: "04", year: "2020", region: "taiwan", title: "(2020冬) 🚴🚴 台東慢活 五日自由騎", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6253709" },
+            { num: "03", year: "2020", region: "taiwan", title: "(2020秋) 🚴🚴 台灣縱騎 6天5夜 (捷安特)", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6251111" },
+            { num: "02", year: "2020", region: "taiwan", title: "(2020秋) 🚴🚴 臺北郊遊三日騎玩", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6240937" },
+            { num: "01", year: "2020", region: "california", title: "(2020秋) 🚴🇺🇸 南加州: 太平洋海岸1號公路", url: "https://www.mobile01.com/topicdetail.php?f=320&t=6195909" }
         ];
 
-        // 3. All 8 Standalone Bottom Showcase Images
-        const showcaseImages = [
-            { url: "https://attach.mobile01.com/attach/202509/mobile01-6bbe21ff98c14e924e71036a9b1a1d58.png", caption: "單車漫遊紀念寫真 #1" },
-            { url: "https://attach.mobile01.com/attach/202402/mobile01-2b1be59fbdfd50952a3d5eaa689ebba2.jpg", caption: "單車漫遊紀念寫真 #2" },
-            { url: "https://attach.mobile01.com/attach/202508/mobile01-894ff69f5da50316a4bd4f5a28c4e3b9.jpg", caption: "單車漫遊紀念寫真 #3" },
-            { url: "https://attach.mobile01.com/attach/202304/mobile01-69a3dff81f78c6743a1701998418ac0a.jpg", caption: "單車漫遊紀念寫真 #4" },
-            { url: "https://attach.mobile01.com/attach/202508/mobile01-db7af82c2f2563d87cec5779fd49a327.jpg", caption: "單車漫遊紀念寫真 #5" },
-            { url: "https://attach.mobile01.com/attach/202508/mobile01-1c33e5aca243c9c3b27a1df3b91600f0.jpg", caption: "單車漫遊紀念寫真 #6" },
-            { url: "https://attach.mobile01.com/attach/202601/mobile01-885abd537e16629cf1fc32f2fdf1aab7.jpg", caption: "單車漫遊紀念寫真 #7" },
-            { url: "https://attach.mobile01.com/attach/202601/mobile01-c487b6387d45c6997c2f970604282bcf.jpg", caption: "單車漫遊紀念寫真 #8" }
+        /* ==========================================================================
+           3. Photo Showcase 8 Standalone Images
+           ========================================================================== */
+        const galleryImages = [
+            { url: "https://attach.mobile01.com/attach/202509/mobile01-6bbe21ff98c14e924e71036a9b1a1d58.png", caption: "騎行攝影集錦 #1" },
+            { url: "https://attach.mobile01.com/attach/202402/mobile01-2b1be59fbdfd50952a3d5eaa689ebba2.jpg", caption: "騎行攝影集錦 #2" },
+            { url: "https://attach.mobile01.com/attach/202508/mobile01-894ff69f5da50316a4bd4f5a28c4e3b9.jpg", caption: "騎行攝影集錦 #3" },
+            { url: "https://attach.mobile01.com/attach/202304/mobile01-69a3dff81f78c6743a1701998418ac0a.jpg", caption: "騎行攝影集錦 #4" },
+            { url: "https://attach.mobile01.com/attach/202508/mobile01-db7af82c2f2563d87cec5779fd49a327.jpg", caption: "騎行攝影集錦 #5" },
+            { url: "https://attach.mobile01.com/attach/202508/mobile01-1c33e5aca243c9c3b27a1df3b91600f0.jpg", caption: "騎行攝影集錦 #6" },
+            { url: "https://attach.mobile01.com/attach/202601/mobile01-885abd537e16629cf1fc32f2fdf1aab7.jpg", caption: "騎行攝影集錦 #7" },
+            { url: "https://attach.mobile01.com/attach/202601/mobile01-c487b6387d45c6997c2f970604282bcf.jpg", caption: "騎行攝影集錦 #8" }
         ];
 
-        // Render Featured Photo Cards
-        function renderFeaturedCards() {
-            const grid = document.getElementById('featured-grid');
-            grid.innerHTML = featuredRides.map(ride => `
-                <a href="${ride.url}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="group relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 transition-all duration-300 hover:-translate-y-1">
-                    <div class="relative w-full aspect-[16/10] overflow-hidden bg-slate-900">
-                        <img src="${ride.img}"
-                             alt="${ride.title}"
-                             loading="lazy"
-                             onerror="this.onerror=null; this.src='${createFallbackSvg(ride.title)}';"
-                             class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold shadow-sm backdrop-blur-sm ${ride.badgeClass}">
-                            ${ride.region}
-                        </span>
-                    </div>
-                    <div class="p-4 sm:p-5 flex items-center justify-between gap-3 bg-white flex-1">
-                        <h3 class="font-bold text-slate-800 group-hover:text-emerald-600 transition-colors text-base leading-snug">
-                            ${ride.title}
-                        </h3>
-                        <span class="shrink-0 w-8 h-8 rounded-full bg-slate-100 group-hover:bg-emerald-500 group-hover:text-white text-slate-500 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                        </span>
-                    </div>
-                </a>
-            `).join('');
+        /* ==========================================================================
+           LocalStorage Helpers for Customizing 2026 Ride Titles (62 & 63)
+           ========================================================================== */
+        function loadCustomTitles() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_CUSTOM_TITLES) || "{}");
+                archiveRides.forEach(ride => {
+                    if (saved[ride.num]) {
+                        ride.title = saved[ride.num];
+                    }
+                });
+            } catch (err) {
+                console.warn("Unable to load custom titles from localStorage:", err);
+            }
         }
 
-        // Archive Filtering & Rendering State
-        let currentFilter = 'all';
-        let currentQuery = '';
-
-        function updateCategoryCounts() {
-            const caCount = archiveRides.filter(r => r.cat === 'california').length;
-            const twCount = archiveRides.filter(r => r.cat === 'taiwan').length;
-            const intlCount = archiveRides.filter(r => r.cat === 'intl').length;
-            document.getElementById('count-ca').textContent = `(${caCount})`;
-            document.getElementById('count-tw').textContent = `(${twCount})`;
-            document.getElementById('count-intl').textContent = `(${intlCount})`;
+        function saveCustomTitle(num, newTitle) {
+            try {
+                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_CUSTOM_TITLES) || "{}");
+                saved[num] = newTitle;
+                localStorage.setItem(STORAGE_KEY_CUSTOM_TITLES, JSON.stringify(saved));
+            } catch (err) {
+                console.warn("Unable to save custom title to localStorage:", err);
+            }
         }
+
+        function loadCustomFeaturedImgs() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_FEATURED_IMGS) || "{}");
+                featuredRoutes.forEach(route => {
+                    if (route.id && saved[route.id]) {
+                        route.img = saved[route.id];
+                    }
+                });
+            } catch (err) {
+                console.warn("Unable to load custom featured images:", err);
+            }
+        }
+
+        function saveCustomFeaturedImg(id, newImgUrl) {
+            try {
+                const saved = JSON.parse(localStorage.getItem(STORAGE_KEY_FEATURED_IMGS) || "{}");
+                saved[id] = newImgUrl;
+                localStorage.setItem(STORAGE_KEY_FEATURED_IMGS, JSON.stringify(saved));
+            } catch (err) {
+                console.warn("Unable to save custom featured image:", err);
+            }
+        }
+
+        /* ==========================================================================
+           Render Section 1: Featured Routes
+           ========================================================================== */
+        let editingFeaturedImgId = null;
+
+        function renderFeaturedRoutes() {
+            const grid = document.getElementById("featured-grid");
+            grid.innerHTML = featuredRoutes.map(route => {
+                const editImgBtn = route.editableImg
+                    ? `<button type="button" class="route-img-btn" onclick="event.preventDefault(); event.stopPropagation(); startEditFeaturedImg('${route.id}')" title="貼上 Mobile01 文章首圖網址">✎ 更換圖片</button>`
+                    : "";
+
+                const imgEditorRow = (route.editableImg && editingFeaturedImgId === route.id)
+                    ? `<div class="route-img-editor" onclick="event.preventDefault(); event.stopPropagation();">
+                           <input type="url" id="feat-img-input-${route.id}" value="${route.img}" placeholder="貼上 attach.mobile01.com 圖片網址...">
+                           <button type="button" class="btn-save" onclick="commitEditFeaturedImg('${route.id}')">儲存</button>
+                           <button type="button" class="btn-cancel" onclick="cancelEditFeaturedImg()">取消</button>
+                       </div>`
+                    : "";
+
+                return `
+                    <div class="route-card">
+                        <a href="${route.url}" target="_blank" rel="noopener noreferrer" style="display:flex; flex-direction:column; flex:1;">
+                            <div class="route-thumb">
+                                <img src="${route.img}"
+                                     alt="${route.title}"
+                                     loading="lazy"
+                                     onerror="this.onerror=null; this.src='${getScenicFallback(route.title)}';">
+                                <span class="route-tag ${route.tagClass}">${route.tag}</span>
+                                ${editImgBtn}
+                            </div>
+                            <div class="route-body">
+                                <h3 class="route-title">${route.title}</h3>
+                                <span class="route-cta">閱讀遊記 →</span>
+                            </div>
+                        </a>
+                        ${imgEditorRow}
+                    </div>
+                `;
+            }).join("");
+
+            if (editingFeaturedImgId) {
+                const inp = document.getElementById(`feat-img-input-${editingFeaturedImgId}`);
+                if (inp) {
+                    inp.focus();
+                    inp.select();
+                    inp.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") commitEditFeaturedImg(editingFeaturedImgId);
+                        if (e.key === "Escape") cancelEditFeaturedImg();
+                    });
+                }
+            }
+        }
+
+        function startEditFeaturedImg(id) {
+            editingFeaturedImgId = id;
+            renderFeaturedRoutes();
+        }
+
+        function cancelEditFeaturedImg() {
+            editingFeaturedImgId = null;
+            renderFeaturedRoutes();
+        }
+
+        function commitEditFeaturedImg(id) {
+            const inp = document.getElementById(`feat-img-input-${id}`);
+            if (!inp) return;
+            const trimmed = inp.value.trim();
+            if (trimmed) {
+                const target = featuredRoutes.find(r => r.id === id);
+                if (target) {
+                    target.img = trimmed;
+                    saveCustomFeaturedImg(id, trimmed);
+                }
+            }
+            editingFeaturedImgId = null;
+            renderFeaturedRoutes();
+        }
+
+        /* ==========================================================================
+           Render Section 2: Complete 63-Ride Archive with Filters & Inline Edit
+           ========================================================================== */
+        let activeRegion = "all";
+        let activeYear = "all";
+        let searchQuery = "";
+        let editingNum = null;
 
         function renderArchiveList() {
-            const listEl = document.getElementById('archive-list');
-            const emptyEl = document.getElementById('empty-state');
-            const statusEl = document.getElementById('result-status');
+            const listEl = document.getElementById("archive-list");
+            const emptyEl = document.getElementById("empty-state");
+            const countEl = document.getElementById("result-count");
 
             const filtered = archiveRides.filter(ride => {
-                const matchesCat = currentFilter === 'all' || ride.cat === currentFilter || (currentFilter === 'all' && ride.isMilestone);
-                const matchesQuery = !currentQuery ||
-                    ride.title.toLowerCase().includes(currentQuery) ||
-                    ride.num.includes(currentQuery) ||
-                    (ride.tagNote && ride.tagNote.toLowerCase().includes(currentQuery));
-                return matchesCat && matchesQuery;
+                const matchRegion =
+                    activeRegion === "all" ||
+                    ride.region === activeRegion;
+
+                const matchYear =
+                    activeYear === "all" ||
+                    ride.year === activeYear;
+
+                const matchSearch =
+                    !searchQuery ||
+                    ride.title.toLowerCase().includes(searchQuery) ||
+                    ride.num.includes(searchQuery) ||
+                    ride.year.includes(searchQuery) ||
+                    (ride.regionLabel && ride.regionLabel.toLowerCase().includes(searchQuery));
+
+                return matchRegion && matchYear && matchSearch;
             });
 
-            statusEl.textContent = `顯示 ${filtered.length} / ${archiveRides.length} 筆紀錄`;
+            countEl.textContent = `顯示 ${filtered.length} / ${archiveRides.length} 筆紀錄`;
 
             if (filtered.length === 0) {
-                listEl.innerHTML = '';
-                emptyEl.classList.remove('hidden');
+                listEl.innerHTML = "";
+                emptyEl.classList.add("visible");
                 return;
             }
 
-            emptyEl.classList.add('hidden');
+            emptyEl.classList.remove("visible");
+
             listEl.innerHTML = filtered.map(ride => {
-                // Special Milestone Banner Card for #58
                 if (ride.isMilestone) {
                     return `
-                        <div class="py-3">
-                            <div class="flex items-center gap-3.5 p-4 rounded-2xl bg-amber-50/90 border border-amber-200/90 text-amber-950">
-                                <span class="shrink-0 w-10 h-10 rounded-xl bg-amber-200 text-amber-900 font-extrabold text-sm flex items-center justify-center">
-                                    ${ride.num}
-                                </span>
-                                <div class="flex-1 font-bold text-sm sm:text-base">
-                                    ${ride.title}
+                        <div class="milestone-card">
+                            <span class="milestone-num">${ride.num}</span>
+                            <div class="milestone-text">${ride.title}</div>
+                            <span class="milestone-tag">2024 休養充電里程碑</span>
+                        </div>
+                    `;
+                }
+
+                let badgeHtml = "";
+                if (ride.year === "2026") {
+                    badgeHtml = `<span class="cat-badge cat-2026">2026 新篇</span>`;
+                } else if (ride.region === "taiwan") {
+                    badgeHtml = `<span class="cat-badge cat-tw">台灣本島</span>`;
+                } else if (ride.region === "california") {
+                    badgeHtml = `<span class="cat-badge cat-ca">${ride.regionLabel || "美國加州"}</span>`;
+                } else if (ride.region === "intl") {
+                    badgeHtml = `<span class="cat-badge cat-intl">${ride.regionLabel || "海外路線"}</span>`;
+                }
+
+                const newBadge = ride.isNew ? `<span class="new-pill">NEW</span>` : "";
+
+                if (editingNum === ride.num) {
+                    const escapedTitle = ride.title.replace(/"/g, "&quot;");
+                    return `
+                        <div class="archive-row">
+                            <div class="archive-row-left">
+                                <span class="num-badge">${ride.num}</span>
+                                <div class="inline-editor">
+                                    <input type="text" id="edit-input-${ride.num}" value="${escapedTitle}" aria-label="編輯遊記標題">
+                                    <button type="button" class="btn-save" onclick="commitEdit('${ride.num}')">儲存</button>
+                                    <button type="button" class="btn-cancel" onclick="cancelEdit()">取消</button>
                                 </div>
-                                <span class="hidden sm:inline-flex px-2.5 py-1 rounded-lg bg-amber-200/70 text-amber-900 text-xs font-bold">
-                                    休養充電里程碑
-                                </span>
                             </div>
                         </div>
                     `;
                 }
 
-                // Region Tag Badge
-                let regionBadge = '';
-                if (ride.cat === 'taiwan') {
-                    regionBadge = `<span class="hidden sm:inline-flex shrink-0 px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">台灣</span>`;
-                } else if (ride.cat === 'california') {
-                    const label = ride.tagNote || '加州/美國';
-                    regionBadge = `<span class="hidden sm:inline-flex shrink-0 px-2.5 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold">${label}</span>`;
-                } else if (ride.cat === 'intl') {
-                    const label = ride.tagNote || '海外';
-                    regionBadge = `<span class="hidden sm:inline-flex shrink-0 px-2.5 py-0.5 rounded-md bg-sky-50 text-sky-700 border border-sky-200 text-xs font-bold">${label}</span>`;
-                }
+                const editBtnHtml = ride.editable
+                    ? `<button type="button" class="edit-title-btn" onclick="startEdit('${ride.num}')" title="自訂標題">✎ 編輯標題</button>`
+                    : "";
 
                 return `
-                    <a href="${ride.url}"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="group flex items-center justify-between gap-3 sm:gap-4 py-3.5 px-3 -mx-3 rounded-2xl hover:bg-slate-50 transition-colors">
-                        <div class="flex items-center gap-3.5 min-w-0">
-                            <span class="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 group-hover:bg-emerald-500 group-hover:text-white text-slate-700 font-extrabold text-xs sm:text-sm flex items-center justify-center transition-colors">
-                                ${ride.num}
-                            </span>
-                            <span class="font-semibold text-slate-800 group-hover:text-emerald-700 text-sm sm:text-base leading-snug transition-colors">
-                                ${ride.title}
-                            </span>
+                    <div class="archive-row">
+                        <div class="archive-row-left">
+                            <span class="num-badge">${ride.num}</span>
+                            <a href="${ride.url}" target="_blank" rel="noopener noreferrer" class="ride-link">
+                                ${newBadge}${ride.title}
+                            </a>
                         </div>
-                        <div class="flex items-center gap-3 shrink-0">
-                            ${regionBadge}
-                            <span class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 group-hover:text-emerald-600 group-hover:bg-emerald-50 transition-colors">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                            </span>
+                        <div class="archive-row-right">
+                            ${editBtnHtml}
+                            ${badgeHtml}
+                            <a href="${ride.url}" target="_blank" rel="noopener noreferrer" class="route-cta" aria-label="開啟遊記">
+                                ↗
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 `;
-            }).join('');
+            }).join("");
+
+            if (editingNum) {
+                const input = document.getElementById(`edit-input-${editingNum}`);
+                if (input) {
+                    input.focus();
+                    input.select();
+                    input.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") commitEdit(editingNum);
+                        if (e.key === "Escape") cancelEdit();
+                    });
+                }
+            }
         }
 
-        // Render Bottom 8 Standalone Images
-        function renderShowcaseGallery() {
-            const grid = document.getElementById('showcase-grid');
-            grid.innerHTML = showcaseImages.map((item, idx) => `
-                <button type="button"
-                        onclick="openLightbox(${idx})"
-                        class="group relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900 shadow-sm hover:shadow-xl border border-slate-200/80 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all duration-300 hover:-translate-y-1">
+        function startEdit(num) {
+            editingNum = num;
+            renderArchiveList();
+        }
+
+        function cancelEdit() {
+            editingNum = null;
+            renderArchiveList();
+        }
+
+        function commitEdit(num) {
+            const input = document.getElementById(`edit-input-${num}`);
+            if (!input) return;
+            const trimmed = input.value.trim();
+            if (trimmed) {
+                const target = archiveRides.find(r => r.num === num);
+                if (target) {
+                    target.title = trimmed;
+                    saveCustomTitle(num, trimmed);
+                }
+            }
+            editingNum = null;
+            renderArchiveList();
+        }
+
+        /* ==========================================================================
+           Render Section 3: Photo Showcase & Lightbox Controls
+           ========================================================================== */
+        let currentLightboxIndex = 0;
+
+        function renderGallery() {
+            const grid = document.getElementById("gallery-grid");
+            grid.innerHTML = galleryImages.map((item, idx) => `
+                <button type="button" class="gallery-item" onclick="openLightbox(${idx})" aria-label="放大檢視 ${item.caption}">
                     <img src="${item.url}"
                          alt="${item.caption}"
                          loading="lazy"
-                         onerror="this.onerror=null; this.src='${createFallbackSvg(item.caption)}';"
-                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/35 transition-colors flex items-center justify-center">
-                        <span class="opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all px-3.5 py-2 rounded-full bg-white/95 text-slate-900 text-xs font-bold shadow-lg flex items-center gap-1.5">
-                            <i class="fa-solid fa-magnifying-glass-plus text-emerald-600"></i> 放大檢視
-                        </span>
+                         onerror="this.onerror=null; this.src='${getScenicFallback(item.caption)}';">
+                    <div class="gallery-overlay">
+                        <span class="gallery-zoom-pill">🔍 放大檢視</span>
                     </div>
                 </button>
-            `).join('');
+            `).join("");
         }
 
-        // Lightbox Controls
-        let activeImageIndex = 0;
-        const lightboxModal = document.getElementById('lightbox-modal');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCaption = document.getElementById('lightbox-caption');
-
         function openLightbox(index) {
-            activeImageIndex = index;
-            updateLightboxContent();
-            lightboxModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            currentLightboxIndex = index;
+            updateLightbox();
+            document.getElementById("lightbox").classList.add("open");
+            document.body.style.overflow = "hidden";
         }
 
         function closeLightbox() {
-            lightboxModal.classList.add('hidden');
-            document.body.style.overflow = '';
+            document.getElementById("lightbox").classList.remove("open");
+            document.body.style.overflow = "";
         }
 
-        function updateLightboxContent() {
-            const current = showcaseImages[activeImageIndex];
-            lightboxImg.src = current.url;
-            lightboxImg.onerror = () => {
-                lightboxImg.onerror = null;
-                lightboxImg.src = createFallbackSvg(current.caption);
+        function updateLightbox() {
+            const item = galleryImages[currentLightboxIndex];
+            const imgEl = document.getElementById("lb-img");
+            const capEl = document.getElementById("lb-caption");
+            imgEl.src = item.url;
+            imgEl.onerror = () => {
+                imgEl.onerror = null;
+                imgEl.src = getScenicFallback(item.caption);
             };
-            lightboxCaption.textContent = `${current.caption} (${activeImageIndex + 1} / ${showcaseImages.length})`;
+            capEl.textContent = `${item.caption} (${currentLightboxIndex + 1} / ${galleryImages.length})`;
         }
 
-        function nextLightboxImage() {
-            activeImageIndex = (activeImageIndex + 1) % showcaseImages.length;
-            updateLightboxContent();
+        function nextLightbox() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length;
+            updateLightbox();
         }
 
-        function prevLightboxImage() {
-            activeImageIndex = (activeImageIndex - 1 + showcaseImages.length) % showcaseImages.length;
-            updateLightboxContent();
+        function prevLightbox() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightbox();
         }
 
-        // Event Listeners Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            renderFeaturedCards();
-            updateCategoryCounts();
+        /* ==========================================================================
+           Initialization & Event Binding
+           ========================================================================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            loadCustomTitles();
+            loadCustomFeaturedImgs();
+            renderFeaturedRoutes();
             renderArchiveList();
-            renderShowcaseGallery();
+            renderGallery();
 
-            // Filter Tab Click Handlers
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterButtons.forEach(b => {
-                        b.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
-                        b.classList.add('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
-                    });
-                    btn.classList.remove('bg-slate-100', 'text-slate-700', 'hover:bg-slate-200');
-                    btn.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
-
-                    currentFilter = btn.getAttribute('data-filter');
+            // Region Filter Buttons
+            document.querySelectorAll("#region-filters .filter-pill").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll("#region-filters .filter-pill").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    activeRegion = btn.dataset.region;
                     renderArchiveList();
                 });
             });
 
-            // Live Search Input
-            const searchInput = document.getElementById('search-input');
-            const clearBtn = document.getElementById('clear-search');
+            // Year Filter Buttons
+            document.querySelectorAll("#year-filters .year-pill").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll("#year-filters .year-pill").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    activeYear = btn.dataset.year;
+                    renderArchiveList();
+                });
+            });
 
-            searchInput.addEventListener('input', (e) => {
-                currentQuery = e.target.value.trim().toLowerCase();
-                clearBtn.classList.toggle('hidden', currentQuery.length === 0);
+            // Search Input
+            const searchInput = document.getElementById("search-input");
+            const clearBtn = document.getElementById("clear-search");
+
+            searchInput.addEventListener("input", (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                clearBtn.classList.toggle("visible", searchQuery.length > 0);
                 renderArchiveList();
             });
 
-            clearBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                currentQuery = '';
-                clearBtn.classList.add('hidden');
+            clearBtn.addEventListener("click", () => {
+                searchInput.value = "";
+                searchQuery = "";
+                clearBtn.classList.remove("visible");
                 renderArchiveList();
                 searchInput.focus();
             });
 
-            // Reset Filters Button in Empty State
-            document.getElementById('reset-filters-btn').addEventListener('click', () => {
-                searchInput.value = '';
-                currentQuery = '';
-                clearBtn.classList.add('hidden');
-                filterButtons[0].click();
+            // Reset Filters Button
+            document.getElementById("reset-filters").addEventListener("click", () => {
+                searchInput.value = "";
+                searchQuery = "";
+                clearBtn.classList.remove("visible");
+                activeRegion = "all";
+                activeYear = "all";
+                document.querySelectorAll("#region-filters .filter-pill").forEach((b, i) => b.classList.toggle("active", i === 0));
+                document.querySelectorAll("#year-filters .year-pill").forEach((b, i) => b.classList.toggle("active", i === 0));
+                renderArchiveList();
             });
 
-            // Lightbox Listeners
-            document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-            document.getElementById('lightbox-next').addEventListener('click', nextLightboxImage);
-            document.getElementById('lightbox-prev').addEventListener('click', prevLightboxImage);
+            // Lightbox Controls
+            const lightboxEl = document.getElementById("lightbox");
+            document.getElementById("lb-close").addEventListener("click", closeLightbox);
+            document.getElementById("lb-next").addEventListener("click", nextLightbox);
+            document.getElementById("lb-prev").addEventListener("click", prevLightbox);
 
-            lightboxModal.addEventListener('click', (e) => {
-                if (e.target === lightboxModal) closeLightbox();
+            lightboxEl.addEventListener("click", (e) => {
+                if (e.target === lightboxEl) closeLightbox();
             });
 
-            document.addEventListener('keydown', (e) => {
-                if (lightboxModal.classList.contains('hidden')) return;
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowRight') nextLightboxImage();
-                if (e.key === 'ArrowLeft') prevLightboxImage();
+            document.addEventListener("keydown", (e) => {
+                if (!lightboxEl.classList.contains("open")) return;
+                if (e.key === "Escape") closeLightbox();
+                if (e.key === "ArrowRight") nextLightbox();
+                if (e.key === "ArrowLeft") prevLightbox();
             });
         });
     </script>
